@@ -10,12 +10,21 @@ public class Dichotomy extends AbstractSolver implements Solver {
     }
 
     private void calcMinX() {
+        calcMinX(false);
+    }
+
+    private void calcMinX(boolean printSteps) {
         double epsilonN = 1, a = leftBound, b = rightBound;
+        int count = 0;
         while (epsilonN > EPSILON) {
             double x1 = (a + b - DELTA) / 2, fX1;
             double x2 = (a + b + DELTA) / 2, fX2;
             fX1 = calcFunc(x1);
             fX2 = calcFunc(x2);
+            if (printSteps) {
+                count++;
+                printValues(count, a, b, x1, x2, fX1, fX2);
+            }
             if (fX1 < fX2) {
                 b = x2;
             } else {
@@ -36,5 +45,9 @@ public class Dichotomy extends AbstractSolver implements Solver {
 
     public double getMinFunc() {
         return minFunc;
+    }
+
+    public void printSteps() {
+        calcMinX(true);
     }
 }

@@ -6,6 +6,7 @@ public class Main {
         double leftBound = 6, rightBound = 9.9;
         Solver dichotomy = new Dichotomy(leftBound, rightBound);
         double xDichotomy = dichotomy.getMinX(), funcDichotomy = dichotomy.getMinFunc();
-        System.out.println("Точка минимумса: " + xDichotomy + ", минимум: " + funcDichotomy);
+        System.out.println("Точка минимума: " + xDichotomy + ", минимум: " + funcDichotomy);
+        dichotomy.printSteps();
     }
 }
