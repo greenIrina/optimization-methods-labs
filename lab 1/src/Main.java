@@ -9,7 +9,8 @@ public class Main {
         System.out.println("Метод дихотомии. Точка минимума: " + xDichotomy + ", минимум: " + funcDichotomy);
         //dichotomy.printSteps();
         Solver goldenSection = new GoldenSection(leftBound,rightBound);
-        System.out.println("Метод золотого сечения. Точка минимума: " + goldenSection.getMinX() + ", минимум: " + goldenSection.getMinFunc());
+        System.out.println("Метод золотого сечения. Точка минимума: " + goldenSection.getMinX()
+                + ", минимум: " + goldenSection.getMinFunc());
         goldenSection.printSteps();
     }
 }
