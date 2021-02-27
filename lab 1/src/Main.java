@@ -6,7 +6,10 @@ public class Main {
         double leftBound = 6, rightBound = 9.9;
         Solver dichotomy = new Dichotomy(leftBound, rightBound);
         double xDichotomy = dichotomy.getMinX(), funcDichotomy = dichotomy.getMinFunc();
-        System.out.println("Точка минимума: " + xDichotomy + ", минимум: " + funcDichotomy);
-        dichotomy.printSteps();
+        System.out.println("Метод дихотомии. Точка минимума: " + xDichotomy + ", минимум: " + funcDichotomy);
+        //dichotomy.printSteps();
+        Solver goldenSection = new GoldenSection(leftBound,rightBound);
+        System.out.println("Метод золотого сечения. Точка минимума: " + goldenSection.getMinX() + ", минимум: " + goldenSection.getMinFunc());
+        goldenSection.printSteps();
     }
 }
