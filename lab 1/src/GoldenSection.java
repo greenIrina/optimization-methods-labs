@@ -1,7 +1,5 @@
 public class GoldenSection extends AbstractSolver implements Solver {
-    private double leftBound, rightBound, minX, minFunc;
     private static final double TAU = (Math.sqrt(5) - 1) / 2;
-    private static final double EPSILON = 0.0001;
 
     public GoldenSection(double leftBound, double rightBound) {
         this.leftBound = leftBound;

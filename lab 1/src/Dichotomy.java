@@ -1,6 +1,4 @@
 public class Dichotomy extends AbstractSolver implements Solver {
-    private double leftBound, rightBound, minX, minFunc;
-    private static final double EPSILON = 0.0001;
     private static final double DELTA = EPSILON / 2;
 
     public Dichotomy(double leftBound, double rightBound) {

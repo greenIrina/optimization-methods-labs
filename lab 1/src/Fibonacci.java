@@ -1,8 +1,5 @@
 public class Fibonacci extends AbstractSolver implements Solver {
-    private double leftBound, rightBound, minX, minFunc;
     private int iterationsNum, fibonacciN2;
-    private static final double EPSILON = 0.0001;
-    //private static final double DELTA = EPSILON / 2;
 
     public Fibonacci(double leftBound, double rightBound) {
         this.leftBound = leftBound;
