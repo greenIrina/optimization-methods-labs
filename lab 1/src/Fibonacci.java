@@ -11,20 +11,20 @@ public class Fibonacci extends AbstractSolver implements Solver {
 
     private double fibonacciNum(int k) {
         return Math.pow((1 + Math.sqrt(5)) / 2, k) / Math.sqrt(5);
-        /* if (k <= 1) {
+        /*if (k <= 1) {
             return 1;
         } else {
             return fibonacciNum(k - 1) + fibonacciNum(k - 2);
-        } */
+        }*/
     }
 
     private int countIterationsNum() {
         int n = 0;
-        double fibN2 = fibonacciNum(n + 2);
+        double fibN2 = fibonacciNum(n);
         double condition = (rightBound - leftBound) / EPSILON;
         while (fibN2 - condition <= 0) {
             n++;
-            fibN2 = fibonacciNum(n + 2);
+            fibN2 = fibonacciNum(n);
         }
         fibonacciN2 = fibN2;
         return n;
@@ -32,12 +32,13 @@ public class Fibonacci extends AbstractSolver implements Solver {
 
     private void calcMinX(boolean printSteps) {
         double a = leftBound, b = rightBound;
-        double x1 = a + fibonacciNum(iterationsNum) * (b - a) / fibonacciN2;
-        double x2 = a + b - x1;
+        double l = (b - a) / fibonacciN2;
+        double x1 = a + l * fibonacciNum(iterationsNum - 2);
+        double x2 = a + l * fibonacciNum(iterationsNum - 1);
         double fX1 = calcFunc(x1);
         double fX2 = calcFunc(x2);
         int count = 0;
-        for (int k = 1; k <= iterationsNum; k++) {
+        for (int k = iterationsNum - 1; k > 1; k--) {
             if (printSteps) {
                 count++;
                 printValues(count, a, b, x1, x2, fX1, fX2);
@@ -50,7 +51,7 @@ public class Fibonacci extends AbstractSolver implements Solver {
                 b = x2;
                 x2 = x1;
                 fX2 = fX1;
-                x1 = a + fibonacciNum(iterationsNum - k + 1) * (rightBound - leftBound) / fibonacciN2;
+                x1 = a + (b - x2);
                 fX1 = calcFunc(x1);
             } else {
                 if (printSteps) {
@@ -60,11 +61,11 @@ public class Fibonacci extends AbstractSolver implements Solver {
                 a = x1;
                 x1 = x2;
                 fX1 = fX2;
-                x2 = a + fibonacciNum(iterationsNum - k + 2) * (rightBound - leftBound) / fibonacciN2;
+                x2 = b - (x1 - a);
                 fX2 = calcFunc(x2);
             }
         }
-        minX = (b + a) / 2;
+        minX = (x1 + x2) / 2;
         minFunc = calcFunc(minX);
     }
 
