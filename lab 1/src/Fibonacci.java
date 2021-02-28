@@ -1,6 +1,6 @@
 public class Fibonacci extends AbstractSolver implements Solver {
     private int iterationsNum;
-    private double fibonacciN2;
+    private double fibonacciN;
 
     public Fibonacci(double leftBound, double rightBound) {
         this.leftBound = leftBound;
@@ -10,29 +10,29 @@ public class Fibonacci extends AbstractSolver implements Solver {
     }
 
     private double fibonacciNum(int k) {
-        return Math.pow((1 + Math.sqrt(5)) / 2, k) / Math.sqrt(5);
-        /*if (k <= 1) {
+        // return Math.pow((1 + Math.sqrt(5)) / 2, k) / Math.sqrt(5);
+        if (k <= 1) {
             return 1;
         } else {
             return fibonacciNum(k - 1) + fibonacciNum(k - 2);
-        }*/
+        }
     }
 
     private int countIterationsNum() {
         int n = 0;
-        double fibN2 = fibonacciNum(n);
+        double fibonacciN = fibonacciNum(n);
         double condition = (rightBound - leftBound) / EPSILON;
-        while (fibN2 - condition <= 0) {
+        while (fibonacciN - condition <= 0) {
             n++;
-            fibN2 = fibonacciNum(n);
+            fibonacciN = fibonacciNum(n);
         }
-        fibonacciN2 = fibN2;
+        this.fibonacciN = fibonacciN;
         return n;
     }
 
     private void calcMinX(boolean printSteps) {
         double a = leftBound, b = rightBound;
-        double l = (b - a) / fibonacciN2;
+        double l = (b - a) / fibonacciN;
         double x1 = a + l * fibonacciNum(iterationsNum - 2);
         double x2 = a + l * fibonacciNum(iterationsNum - 1);
         double fX1 = calcFunc(x1);
