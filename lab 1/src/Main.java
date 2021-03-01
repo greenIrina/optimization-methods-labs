@@ -15,6 +15,10 @@ public class Main {
         Solver fibonacci = new Fibonacci(leftBound, rightBound);
         System.out.println("Метод Фибоначчи. Точка минимума: " + fibonacci.getMinX() + ", минимум: "
                 + fibonacci.getMinFunc());
-        fibonacci.printSteps();
+        //fibonacci.printSteps();
+        Solver parabola = new Parabola(leftBound,rightBound);
+        System.out.println("Метод Парабол. Точка минимума: " + parabola.getMinX() + ", минимум: "
+                + parabola.getMinFunc());
+        parabola.printSteps();
     }
 }
