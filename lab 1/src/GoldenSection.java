@@ -14,35 +14,12 @@ public class GoldenSection extends AbstractSolver implements Solver {
         double x2 = a + (Math.sqrt(5) - 1) * (b - a) / 2;
         double fX1 = calcFunc(x1);
         double fX2 = calcFunc(x2);
+        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, TAU, count, printSteps);
         while (epsilonN > EPSILON) {
-            epsilonN = (b - a) / 2;
-            if (printSteps) {
-                count++;
-                printValues(count, a, b, x1, x2, fX1, fX2);
-            }
-            if (fX1 - fX2 <= 0) {
-                if (printSteps) {
-                    System.out.print(String.format("%.10f", (b - a) / (x2 - a)));
-                    System.out.println();
-                }
-                b = x2;
-                x2 = x1;
-                fX2 = fX1;
-                x1 = b - TAU * (b - a);
-                fX1 = calcFunc(x1);
-            } else {
-                if (printSteps) {
-                    System.out.print(String.format("%.10f", (b - a) / (b - x1)));
-                    System.out.println();
-                }
-                a = x1;
-                x1 = x2;
-                fX1 = fX2;
-                x2 = a + TAU * (b - a);
-                fX2 = calcFunc(x2);
-            }
+            epsilonN = (goldenFibonacciImpl.getB() - goldenFibonacciImpl.getA()) / 2;
+            goldenFibonacciImpl.calcMinImpl(true);
         }
-        minX = (a + b) / 2;
+        minX = (goldenFibonacciImpl.getA() + goldenFibonacciImpl.getB()) / 2;
         minFunc = calcFunc(minX);
     }
 

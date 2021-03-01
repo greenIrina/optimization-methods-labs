@@ -38,34 +38,11 @@ public class Fibonacci extends AbstractSolver implements Solver {
         double fX1 = calcFunc(x1);
         double fX2 = calcFunc(x2);
         int count = 0;
+        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, 0, count, printSteps);
         for (int k = iterationsNum - 1; k > 1; k--) {
-            if (printSteps) {
-                count++;
-                printValues(count, a, b, x1, x2, fX1, fX2);
-            }
-            if (fX1 - fX2 <= 0) {
-                if (printSteps) {
-                    System.out.print(String.format("%.10f", (b - a) / (x2 - a)));
-                    System.out.println();
-                }
-                b = x2;
-                x2 = x1;
-                fX2 = fX1;
-                x1 = a + (b - x2);
-                fX1 = calcFunc(x1);
-            } else {
-                if (printSteps) {
-                    System.out.print(String.format("%.10f", (b - a) / (b - x1)));
-                    System.out.println();
-                }
-                a = x1;
-                x1 = x2;
-                fX1 = fX2;
-                x2 = b - (x1 - a);
-                fX2 = calcFunc(x2);
-            }
+            goldenFibonacciImpl.calcMinImpl(false);
         }
-        minX = (x1 + x2) / 2;
+        minX = (goldenFibonacciImpl.getX1() + goldenFibonacciImpl.getX2()) / 2;
         minFunc = calcFunc(minX);
     }
 
