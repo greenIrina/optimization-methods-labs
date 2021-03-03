@@ -2,9 +2,10 @@ public class Fibonacci extends AbstractSolver implements Solver {
     private int iterationsNum;
     private double fibonacciN;
 
-    public Fibonacci(double leftBound, double rightBound) {
+    public Fibonacci(double leftBound, double rightBound, double epsilon) {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
+        this.epsilon = epsilon;
         iterationsNum = countIterationsNum();
         calcMinX(false);
     }
@@ -21,7 +22,7 @@ public class Fibonacci extends AbstractSolver implements Solver {
     private int countIterationsNum() {
         int n = 0;
         double fibonacciN = fibonacciNum(n);
-        double condition = (rightBound - leftBound) / EPSILON;
+        double condition = (rightBound - leftBound) / epsilon;
         while (fibonacciN - condition <= 0) {
             n++;
             fibonacciN = fibonacciNum(n);

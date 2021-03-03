@@ -1,6 +1,5 @@
 public abstract class AbstractSolver implements Solver {
-    protected double leftBound, rightBound, minX, minFunc;
-    protected static final double EPSILON = 0.0001;
+    protected double leftBound, rightBound, minX, minFunc, epsilon;
 
     public double calcFunc(double x) {
         return -Math.pow(x, 0.2) + Math.pow(Math.log10(x - 2), 2) + Math.pow(Math.log10(10 - x), 2);

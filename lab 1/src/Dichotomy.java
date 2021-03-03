@@ -1,18 +1,20 @@
 public class Dichotomy extends AbstractSolver implements Solver {
-    private static final double DELTA = EPSILON / 2;
+    private double delta;
 
-    public Dichotomy(double leftBound, double rightBound) {
+    public Dichotomy(double leftBound, double rightBound, double epsilon) {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
+        this.epsilon = epsilon;
+        this.delta = epsilon / 2;
         calcMinX(false);
     }
 
     private void calcMinX(boolean printSteps) {
         double epsilonN = 1, a = leftBound, b = rightBound;
         int count = 0;
-        while (epsilonN > EPSILON) {
-            double x1 = (a + b - DELTA) / 2;
-            double x2 = (a + b + DELTA) / 2;
+        while (epsilonN > epsilon) {
+            double x1 = (a + b - delta) / 2;
+            double x2 = (a + b + delta) / 2;
             double fX1 = calcFunc(x1);
             double fX2 = calcFunc(x2);
             if (printSteps) {

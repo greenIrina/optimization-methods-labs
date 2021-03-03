@@ -3,9 +3,10 @@ import javafx.util.Pair;
 import java.util.Random;
 
 public class Parabola extends AbstractSolver implements Solver {
-    public Parabola(double leftBound, double rightBound) {
+    public Parabola(double leftBound, double rightBound, double epsilon) {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
+        this.epsilon = epsilon;
         calcMin(false);
     }
 
@@ -49,7 +50,7 @@ public class Parabola extends AbstractSolver implements Solver {
                     printValues(k, x1, x2, x3, fX1, fX2, fX3, a1, a2, xMed, fXMed);
                     System.out.println();
                 }
-                if (x3 - x1 <= EPSILON) {
+                if (x3 - x1 <= epsilon) {
                     minX = xMed;
                     minFunc = fXMed;
                     break;
