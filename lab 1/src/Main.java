@@ -19,6 +19,6 @@ public class Main {
         Solver parabola = new Parabola(leftBound,rightBound);
         System.out.println("Метод Парабол. Точка минимума: " + parabola.getMinX() + ", минимум: "
                 + parabola.getMinFunc());
-        parabola.printSteps();
+        //parabola.printSteps();
     }
 }
