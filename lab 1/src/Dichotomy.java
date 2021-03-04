@@ -1,15 +1,17 @@
 public class Dichotomy extends AbstractSolver implements Solver {
     private double delta;
 
+
     public Dichotomy(double leftBound, double rightBound, double epsilon) {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.epsilon = epsilon;
         this.delta = epsilon / 2;
-        calcMinX(false);
+        createLogger("D, eps=" + epsilon, false);
+        calcMinX();
     }
 
-    private void calcMinX(boolean printSteps) {
+    private void calcMinX() {
         double epsilonN = 1, a = leftBound, b = rightBound;
         int count = 0;
         while (epsilonN > epsilon) {
@@ -17,21 +19,12 @@ public class Dichotomy extends AbstractSolver implements Solver {
             double x2 = (a + b + delta) / 2;
             double fX1 = calcFunc(x1);
             double fX2 = calcFunc(x2);
-            if (printSteps) {
-                count++;
-                printValues(count, a, b, x1, x2, fX1, fX2);
-            }
+            count++;
+            logger.writeData(values(count, a, b, x1, x2, fX1, fX2), count);
+            //}
             if (fX1 - fX2 < 0) {
-                if (printSteps) {
-                    System.out.print(String.format("%.10f", (b - a) / (x2 - a)));
-                    System.out.println();
-                }
                 b = x2;
             } else {
-                if (printSteps) {
-                    System.out.print(String.format("%.10f", (b - a) / (b - x1)));
-                    System.out.println();
-                }
                 a = x1;
             }
 
@@ -39,6 +32,7 @@ public class Dichotomy extends AbstractSolver implements Solver {
         }
         minX = (a + b) / 2;
         minFunc = calcFunc(minX);
+        logger.writeInFile();
     }
 
     public double getMinX() {
@@ -47,9 +41,5 @@ public class Dichotomy extends AbstractSolver implements Solver {
 
     public double getMinFunc() {
         return minFunc;
-    }
-
-    public void printSteps() {
-        calcMinX(true);
     }
 }

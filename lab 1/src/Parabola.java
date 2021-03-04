@@ -7,7 +7,8 @@ public class Parabola extends AbstractSolver implements Solver {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.epsilon = epsilon;
-        calcMin(false);
+        createLogger("P, eps=" + epsilon, true);
+        calcMin();
     }
 
     private Pair<Double, Double> searchX2(double x1, double x3, double fX1, double fX3) {
@@ -21,12 +22,16 @@ public class Parabola extends AbstractSolver implements Solver {
         return new Pair<>(x2, fX2);
     }
 
-    private void calcMin(boolean printSteps) {
+    private void calcMin() {
+        /*
         double x1 = leftBound, x3 = rightBound;
         double fX1 = calcFunc(x1), fX3 = calcFunc(x3);
         Pair<Double, Double> middlePoint = searchX2(x1, x3, fX1, fX3);
         double x2 = middlePoint.getKey();
         double fX2 = middlePoint.getValue();
+         */
+        double x1 = 6.5, x2 = 8, x3 = 9.5;
+        double fX1 = calcFunc(x1), fX2 = calcFunc(x2), fX3 = calcFunc(x3);
 
         double a1 = (fX2 - fX1) / (x2 - x1);
         double a2 = ((fX3 - fX1) / (x3 - x1) - (fX2 - fX1) / (x2 - x1)) / (x3 - x2);
@@ -35,10 +40,7 @@ public class Parabola extends AbstractSolver implements Solver {
         double fXMed = calcFunc(xMed);
 
         int k = 0;
-        if (printSteps) {
-            printValues(k, x1, x2, x3, fX1, fX2, fX3, a1, a2, xMed, fXMed);
-            System.out.println();
-        }
+        logger.writeData(values(k, a1, a2, x1, x2, x3, fX1, fX2, fX3, xMed, fXMed), k + 1);
 
         while (true) {
             if (k > 0) {
@@ -46,10 +48,9 @@ public class Parabola extends AbstractSolver implements Solver {
                 a2 = ((fX3 - fX1) / (x3 - x1) - (fX2 - fX1) / (x2 - x1)) / (x3 - x2);
                 xMed = (x1 + x2 - a1 / a2) / 2;
                 fXMed = calcFunc(xMed);
-                if (printSteps) {
-                    printValues(k, x1, x2, x3, fX1, fX2, fX3, a1, a2, xMed, fXMed);
-                    System.out.println();
-                }
+
+                logger.writeData(values(k, a1, a2, x1, x2, x3, fX1, fX2, fX3, xMed, fXMed), k + 1);
+
                 if (x3 - x1 <= epsilon) {
                     minX = xMed;
                     minFunc = fXMed;
@@ -75,6 +76,7 @@ public class Parabola extends AbstractSolver implements Solver {
             }
             k++;
         }
+        logger.writeInFile();
     }
 
     @Override
@@ -85,10 +87,5 @@ public class Parabola extends AbstractSolver implements Solver {
     @Override
     public double getMinFunc() {
         return minFunc;
-    }
-
-    @Override
-    public void printSteps() {
-        calcMin(true);
     }
 }

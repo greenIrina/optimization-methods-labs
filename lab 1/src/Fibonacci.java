@@ -7,7 +7,8 @@ public class Fibonacci extends AbstractSolver implements Solver {
         this.rightBound = rightBound;
         this.epsilon = epsilon;
         iterationsNum = countIterationsNum();
-        calcMinX(false);
+        createLogger("F, eps=" + epsilon, false);
+        calcMinX();
     }
 
     private double fibonacciNum(int k) {
@@ -31,7 +32,7 @@ public class Fibonacci extends AbstractSolver implements Solver {
         return n;
     }
 
-    private void calcMinX(boolean printSteps) {
+    private void calcMinX() {
         double a = leftBound, b = rightBound;
         double l = (b - a) / fibonacciN;
         double x1 = a + l * fibonacciNum(iterationsNum - 2);
@@ -39,12 +40,13 @@ public class Fibonacci extends AbstractSolver implements Solver {
         double fX1 = calcFunc(x1);
         double fX2 = calcFunc(x2);
         int count = 0;
-        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, 0, count, printSteps);
+        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, 0, count, logger);
         for (int k = iterationsNum - 1; k > 1; k--) {
             goldenFibonacciImpl.calcMinImpl(false);
         }
         minX = (goldenFibonacciImpl.getX1() + goldenFibonacciImpl.getX2()) / 2;
         minFunc = calcFunc(minX);
+        logger.writeInFile();
     }
 
     @Override
@@ -55,10 +57,5 @@ public class Fibonacci extends AbstractSolver implements Solver {
     @Override
     public double getMinFunc() {
         return minFunc;
-    }
-
-    @Override
-    public void printSteps() {
-        calcMinX(true);
     }
 }

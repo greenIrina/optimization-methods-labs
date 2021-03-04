@@ -1,10 +1,9 @@
 public class GoldenFibonacciImpl extends AbstractSolver {
     private double a, b, x1, x2, fX1, fX2, tau;
     private int count;
-    private boolean printSteps;
 
     public GoldenFibonacciImpl(double a, double b, double x1, double x2, double fX1, double fX2, double tau,
-                               int count, boolean printSteps) {
+                               int count, Logger logger) {
         this.a = a;
         this.b = b;
         this.x1 = x1;
@@ -13,7 +12,7 @@ public class GoldenFibonacciImpl extends AbstractSolver {
         this.fX2 = fX2;
         this.tau = tau;
         this.count = count;
-        this.printSteps = printSteps;
+        this.logger = logger;
     }
 
     private double calcX1(boolean goldenSection) {
@@ -31,25 +30,31 @@ public class GoldenFibonacciImpl extends AbstractSolver {
     }
 
     public void calcMinImpl(boolean goldenSection) {
-        if (printSteps) {
-            count++;
-            printValues(count, a, b, x1, x2, fX1, fX2);
-        }
+        //if (printSteps) {
+        count++;
+        //printValues(count, a, b, x1, x2, fX1, fX2);
+        logger.writeData(values(count, a, b, x1, x2, fX1, fX2), count);
+        //}
         if (fX1 - fX2 <= 0) {
+            /*
             if (printSteps) {
+
                 System.out.print(String.format("%.10f", (b - a) / (x2 - a)));
                 System.out.println();
             }
+            */
             b = x2;
             x2 = x1;
             fX2 = fX1;
             x1 = calcX1(goldenSection);
             fX1 = calcFunc(x1);
         } else {
+            /*
             if (printSteps) {
                 System.out.print(String.format("%.10f", (b - a) / (b - x1)));
                 System.out.println();
             }
+            */
             a = x1;
             x1 = x2;
             fX1 = fX2;
@@ -82,10 +87,5 @@ public class GoldenFibonacciImpl extends AbstractSolver {
     @Override
     public double getMinFunc() {
         return 0;
-    }
-
-    @Override
-    public void printSteps() {
-
     }
 }
