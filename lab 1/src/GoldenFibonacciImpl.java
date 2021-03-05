@@ -30,31 +30,15 @@ public class GoldenFibonacciImpl extends AbstractSolver {
     }
 
     public void calcMinImpl(boolean goldenSection) {
-        //if (printSteps) {
         count++;
-        //printValues(count, a, b, x1, x2, fX1, fX2);
         logger.writeData(values(count, a, b, x1, x2, fX1, fX2), count);
-        //}
         if (fX1 - fX2 <= 0) {
-            /*
-            if (printSteps) {
-
-                System.out.print(String.format("%.10f", (b - a) / (x2 - a)));
-                System.out.println();
-            }
-            */
             b = x2;
             x2 = x1;
             fX2 = fX1;
             x1 = calcX1(goldenSection);
             fX1 = calcFunc(x1);
         } else {
-            /*
-            if (printSteps) {
-                System.out.print(String.format("%.10f", (b - a) / (b - x1)));
-                System.out.println();
-            }
-            */
             a = x1;
             x1 = x2;
             fX1 = fX2;

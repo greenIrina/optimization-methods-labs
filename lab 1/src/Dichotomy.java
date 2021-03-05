@@ -21,7 +21,6 @@ public class Dichotomy extends AbstractSolver implements Solver {
             double fX2 = calcFunc(x2);
             count++;
             logger.writeData(values(count, a, b, x1, x2, fX1, fX2), count);
-            //}
             if (fX1 - fX2 < 0) {
                 b = x2;
             } else {
