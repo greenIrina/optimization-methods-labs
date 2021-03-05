@@ -8,7 +8,7 @@ public class Parabola extends AbstractSolver implements Solver {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.epsilon = epsilon;
-        createLogger("P, eps=" + epsilon, true);
+        createLogger("P, eps=" + epsilon, 1);
         calcMin();
     }
 

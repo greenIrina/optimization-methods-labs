@@ -7,7 +7,7 @@ public class Dichotomy extends AbstractSolver implements Solver {
         this.rightBound = rightBound;
         this.epsilon = epsilon;
         this.delta = epsilon / 2;
-        createLogger("D, eps=" + epsilon, false);
+        createLogger("D, eps=" + epsilon, 0);
         calcMinX();
     }
 

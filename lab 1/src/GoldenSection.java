@@ -3,7 +3,7 @@ public class GoldenSection extends AbstractSolver implements Solver {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.epsilon = epsilon;
-        createLogger("GS, eps=" + epsilon, false);
+        createLogger("GS, eps=" + epsilon, 0);
         calcMinX();
     }
 

@@ -5,7 +5,7 @@ public class Brent extends AbstractSolver implements Solver {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.epsilon = epsilon;
-        createLogger("B, eps=" + epsilon, false);
+        createLogger("B, eps=" + epsilon, 2);
         calcMinX();
     }
 
@@ -15,19 +15,21 @@ public class Brent extends AbstractSolver implements Solver {
         double fX = calcFunc(x), fW = fX, fV = fX;
         double d = c - a, e = d;
         List<Double> values;
-        double u = 0, fU = 0;
-        boolean parabolaU = false;
-        while (true) {
+        double u = x, fU = fX;
+        boolean parabolaU;
+        int count = 0;
+        while (d > epsilon) {
+            logger.writeData(values(count, a, c, x, w, v, fX, fW, fV, u, fU, d / e), count + 1);
+            count++;
+            parabolaU = false;
             double g = e;
             e = d;
             double tol = epsilon * Math.abs(x) + epsilon / 10;
             if (Math.abs(x - (a + c) / 2) + (c - a) / 2 - 2 * tol <= 0) {
-                minX = x;
-                minFunc = fX;
                 break;
             }
-            if (Math.abs(x - w) >= epsilon && Math.abs(x - v) >= epsilon && Math.abs(v - w) >= epsilon
-                    && Math.abs(fX - fW) >= epsilon && Math.abs(fX - fV) >= epsilon && Math.abs(fV - fW) >= epsilon) {
+
+            if (!(x == w || x == v || w == v || fX == fW || fX == fV || fV == fW)) {
                 values = calcParabolaMin(x, w, v, fX, fW, fV);
                 u = values.get(2);
                 if (u - a >= 0 && c - u >= 0 && Math.abs(u - x) - g / 2 < 0) {
@@ -38,7 +40,8 @@ public class Brent extends AbstractSolver implements Solver {
                 } else {
                     parabolaU = false;
                 }
-            } else if (!parabolaU) {
+            }
+            if (!parabolaU) {
                 if (x - (a + c) / 2 < 0) {
                     u = x + K * (c - x);
                     e = c - x;
@@ -81,5 +84,8 @@ public class Brent extends AbstractSolver implements Solver {
                 }
             }
         }
+        minX = x;
+        minFunc = fX;
+        logger.writeInFile();
     }
 }

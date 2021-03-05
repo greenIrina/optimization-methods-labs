@@ -5,10 +5,9 @@ public class Main {
         // min f(x): x = 8.7269, f(x) = -0.8460
         double leftBound = 6, rightBound = 9.9;
         double epsilon;
-        int testCount = 7;
+        int testCount = 9;
         for (int i = -1; i > -testCount; i--) {
             epsilon = Double.parseDouble(String.format("1e%d", i));
-
 
             Solver dichotomy = new Dichotomy(leftBound, rightBound, epsilon);
 
@@ -26,14 +25,11 @@ public class Main {
             Solver parabola = new Parabola(leftBound, rightBound, epsilon);
             System.out.println("Метод Парабол. Заданная точность: " + epsilon
                     + ". Точка минимума: " + parabola.getMinX() + ", минимум: " + parabola.getMinFunc());
-            System.out.println();
 
-            /*
             Solver brent = new Brent(leftBound,rightBound,epsilon);
             System.out.println("Комбинированный Брента. Заданная точность: " + epsilon
                     + ". Точка минимума: " + brent.getMinX() + ", минимум: " + brent.getMinFunc());
             System.out.println();
-             */
         }
     }
 }

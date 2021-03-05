@@ -7,7 +7,7 @@ public class Fibonacci extends AbstractSolver implements Solver {
         this.rightBound = rightBound;
         this.epsilon = epsilon;
         iterationsNum = countIterationsNum();
-        createLogger("F, eps=" + epsilon, false);
+        createLogger("F, eps=" + epsilon, 0);
         calcMinX();
     }
 

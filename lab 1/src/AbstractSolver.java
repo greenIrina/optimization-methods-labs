@@ -1,4 +1,7 @@
+import org.apache.commons.compress.utils.Lists;
+
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractSolver implements Solver {
@@ -9,15 +12,21 @@ public abstract class AbstractSolver implements Solver {
 
     public double calcFunc(double x) {
         return -Math.pow(x, 0.2) + Math.pow(Math.log10(x - 2), 2) + Math.pow(Math.log10(10 - x), 2);
+        //return 10 * x * Math.log(x) - Math.pow(x, 2) / 2;
     }
 
-    protected List<String> headers(boolean isParabolaMethod) {
-        if (isParabolaMethod) {
+    protected List<String> headers(int type) {
+        if (type == 0) {
+            return Arrays.asList("Step", "a", "b", "x1", "x2", "f(x1)", "f(x2)", "отношение длин интервалов",
+                    "точность epsilon = " + epsilon);
+        } else if (type == 1) {
             return Arrays.asList("Step", "a1", "a2", "x1", "x2", "x3", "f(x1)", "f(x2)", "f(x3)", "x_med", "f(x_med)",
                     "отношение длин интервалов", "точность epsilon = " + epsilon);
+        } else if (type == 2) {
+            return Arrays.asList("Step", "a", "c", "x", "w", "v", "f(x)", "f(w)", "f(v)", "u", "f(u)",
+                    "отношение длин интервалов", "", "точность epsilon = " + epsilon);
         }
-        return Arrays.asList("Step", "a", "b", "x1", "x2", "f(x1)", "f(x2)", "отношение длин интервалов",
-                "точность epsilon = " + epsilon);
+        return Collections.emptyList();
     }
 
     protected List<Double> values(double count, double a, double b, double x1, double x2, double fX1, double fX2) {
@@ -29,9 +38,14 @@ public abstract class AbstractSolver implements Solver {
         return Arrays.asList(count, a1, a2, x1, x2, x3, fX1, fX2, fX3, xMed, fXMed);
     }
 
-    protected void createLogger(String method, boolean isParabolaMethod) {
+    protected List<Double> values(double count, double a, double c, double x, double w, double v, double fX,
+                                  double fW, double fV, double u, double fU, double lengths) {
+        return Arrays.asList(count, a, c, x, w, v, fX, fW, fV, u, fU, lengths);
+    }
+
+    protected void createLogger(String method, int type) {
         logger = new Logger(method);
-        logger.createHeaders(headers(isParabolaMethod));
+        logger.createHeaders(headers(type));
     }
 
     protected List<Double> calcParabolaMin(double x1, double x2, double x3, double fX1, double fX2, double fX3) {
