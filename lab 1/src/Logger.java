@@ -45,4 +45,23 @@ public class Logger {
             e.printStackTrace();
         }
     }
+
+    public void writeEpsilon(double epsilon) {
+        Row row = sheet.getRow(0);
+        Cell cell = row.createCell(20);
+        cell.setCellValue("Заданная точность: ");
+        sheet.autoSizeColumn(20);
+        cell = row.createCell(21);
+        cell.setCellValue(epsilon);
+    }
+
+    public void writeCntFunc(int cnt) {
+        Row row = sheet.getRow(1);
+        Cell cell = row.createCell(20);
+        cell.setCellValue("Функция считалась столько раз: ");
+        sheet.autoSizeColumn(20);
+        cell = row.createCell(21);
+        cell.setCellValue(cnt);
+    }
+
 }

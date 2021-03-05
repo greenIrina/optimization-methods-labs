@@ -1,8 +1,8 @@
 public class GoldenFibonacciImpl extends AbstractSolver {
     private double a, b, x1, x2, fX1, fX2;
-    private int count;
+    private int count, cnt;
 
-    public GoldenFibonacciImpl(double a, double b, double x1, double x2, double fX1, double fX2, int count,
+    public GoldenFibonacciImpl(double a, double b, double x1, double x2, double fX1, double fX2, int count, int cnt,
                                Logger logger) {
         this.a = a;
         this.b = b;
@@ -11,6 +11,7 @@ public class GoldenFibonacciImpl extends AbstractSolver {
         this.fX1 = fX1;
         this.fX2 = fX2;
         this.count = count;
+        this.cnt=cnt;
         this.logger = logger;
     }
 
@@ -37,12 +38,14 @@ public class GoldenFibonacciImpl extends AbstractSolver {
             fX2 = fX1;
             x1 = calcX1(goldenSection);
             fX1 = calcFunc(x1);
+            cnt++;
         } else {
             a = x1;
             x1 = x2;
             fX1 = fX2;
             x2 = calcX2(goldenSection);
             fX2 = calcFunc(x2);
+            cnt++;
         }
     }
 
@@ -60,5 +63,9 @@ public class GoldenFibonacciImpl extends AbstractSolver {
 
     public double getX2() {
         return x2;
+    }
+
+    public int getCnt() {
+        return cnt;
     }
 }

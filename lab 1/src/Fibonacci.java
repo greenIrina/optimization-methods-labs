@@ -39,13 +39,16 @@ public class Fibonacci extends AbstractSolver implements Solver {
         double x2 = a + l * fibonacciNum(iterationsNum - 1);
         double fX1 = calcFunc(x1);
         double fX2 = calcFunc(x2);
-        int count = 0;
-        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, count, logger);
+        int count = 0, cnt=2;
+        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, count, cnt, logger);
         for (int k = iterationsNum - 1; k > 1; k--) {
             goldenFibonacciImpl.calcMinImpl(false);
         }
+        cnt = goldenFibonacciImpl.getCnt();
         minX = (goldenFibonacciImpl.getX1() + goldenFibonacciImpl.getX2()) / 2;
         minFunc = calcFunc(minX);
+        cnt++;
+        logger.writeCntFunc(cnt);
         logger.writeInFile();
     }
 }

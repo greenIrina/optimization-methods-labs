@@ -17,7 +17,7 @@ public class Brent extends AbstractSolver implements Solver {
         List<Double> values;
         double u = x, fU = fX;
         boolean parabolaU;
-        int count = 0;
+        int count = 0, cnt = 1;
         while (d > epsilon) {
             logger.writeData(values(count, a, c, x, w, v, fX, fW, fV, u, fU, d / e), count + 1);
             count++;
@@ -31,6 +31,7 @@ public class Brent extends AbstractSolver implements Solver {
 
             if (!(x == w || x == v || w == v || fX == fW || fX == fV || fV == fW)) {
                 values = calcParabolaMin(x, w, v, fX, fW, fV);
+                cnt++;
                 u = values.get(2);
                 if (u - a >= 0 && c - u >= 0 && Math.abs(u - x) - g / 2 < 0) {
                     parabolaU = true;
@@ -55,6 +56,7 @@ public class Brent extends AbstractSolver implements Solver {
             }
             d = Math.abs(u - x);
             fU = calcFunc(u);
+            cnt++;
             if (fU - fX <= 0) {
                 if (u - x >= 0) {
                     a = x;
@@ -86,6 +88,7 @@ public class Brent extends AbstractSolver implements Solver {
         }
         minX = x;
         minFunc = fX;
+        logger.writeCntFunc(cnt);
         logger.writeInFile();
     }
 }
