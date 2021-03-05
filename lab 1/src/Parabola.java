@@ -1,5 +1,6 @@
 import javafx.util.Pair;
 
+import java.util.List;
 import java.util.Random;
 
 public class Parabola extends AbstractSolver implements Solver {
@@ -32,24 +33,20 @@ public class Parabola extends AbstractSolver implements Solver {
          */
         double x1 = 6.5, x2 = 8, x3 = 9.5;
         double fX1 = calcFunc(x1), fX2 = calcFunc(x2), fX3 = calcFunc(x3);
-
-        double a1 = (fX2 - fX1) / (x2 - x1);
-        double a2 = ((fX3 - fX1) / (x3 - x1) - (fX2 - fX1) / (x2 - x1)) / (x3 - x2);
-
-        double xMed = (x1 + x2 - a1 / a2) / 2;
-        double fXMed = calcFunc(xMed);
-
         int k = 0;
-        logger.writeData(values(k, a1, a2, x1, x2, x3, fX1, fX2, fX3, xMed, fXMed), k + 1);
+
+        List<Double> values = calcParabolaMin(x1, x2, x3, fX1, fX2, fX3);
+        double xMed = values.get(2);
+        double fXMed = values.get(3);
+
+        logger.writeData(values(k, values.get(0), values.get(1), x1, x2, x3, fX1, fX2, fX3, xMed, fXMed), k + 1);
 
         while (true) {
             if (k > 0) {
-                a1 = (fX2 - fX1) / (x2 - x1);
-                a2 = ((fX3 - fX1) / (x3 - x1) - (fX2 - fX1) / (x2 - x1)) / (x3 - x2);
-                xMed = (x1 + x2 - a1 / a2) / 2;
-                fXMed = calcFunc(xMed);
-
-                logger.writeData(values(k, a1, a2, x1, x2, x3, fX1, fX2, fX3, xMed, fXMed), k + 1);
+                values = calcParabolaMin(x1, x2, x3, fX1, fX2, fX3);
+                xMed = values.get(2);
+                fXMed = values.get(3);
+                logger.writeData(values(k, values.get(0), values.get(1), x1, x2, x3, fX1, fX2, fX3, xMed, fXMed), k + 1);
 
                 if (x3 - x1 <= epsilon) {
                     minX = xMed;

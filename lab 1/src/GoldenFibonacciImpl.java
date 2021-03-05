@@ -1,30 +1,29 @@
 public class GoldenFibonacciImpl extends AbstractSolver {
-    private double a, b, x1, x2, fX1, fX2, tau;
+    private double a, b, x1, x2, fX1, fX2;
     private int count;
 
-    public GoldenFibonacciImpl(double a, double b, double x1, double x2, double fX1, double fX2, double tau,
-                               int count, Logger logger) {
+    public GoldenFibonacciImpl(double a, double b, double x1, double x2, double fX1, double fX2, int count,
+                               Logger logger) {
         this.a = a;
         this.b = b;
         this.x1 = x1;
         this.x2 = x2;
         this.fX1 = fX1;
         this.fX2 = fX2;
-        this.tau = tau;
         this.count = count;
         this.logger = logger;
     }
 
     private double calcX1(boolean goldenSection) {
         if (goldenSection) {
-            return b - tau * (b - a);
+            return b - TAU * (b - a);
         }
         return a + (b - x2);
     }
 
     private double calcX2(boolean goldenSection) {
         if (goldenSection) {
-            return a + tau * (b - a);
+            return a + TAU * (b - a);
         }
         return b - (x1 - a);
     }

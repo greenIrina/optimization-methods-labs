@@ -40,7 +40,7 @@ public class Fibonacci extends AbstractSolver implements Solver {
         double fX1 = calcFunc(x1);
         double fX2 = calcFunc(x2);
         int count = 0;
-        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, 0, count, logger);
+        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, count, logger);
         for (int k = iterationsNum - 1; k > 1; k--) {
             goldenFibonacciImpl.calcMinImpl(false);
         }
