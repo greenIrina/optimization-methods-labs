@@ -34,12 +34,4 @@ public class Dichotomy extends AbstractSolver implements Solver {
         minFunc = calcFunc(minX);
         logger.writeInFile();
     }
-
-    public double getMinX() {
-        return minX;
-    }
-
-    public double getMinFunc() {
-        return minFunc;
-    }
 }

@@ -31,4 +31,12 @@ public abstract class AbstractSolver implements Solver {
         logger = new Logger(method);
         logger.createHeaders(headers(isParabolaMethod));
     }
+
+    public double getMinX() {
+        return minX;
+    }
+
+    public double getMinFunc() {
+        return minFunc;
+    }
 }

@@ -26,6 +26,5 @@ public class Main {
                     + ". Точка минимума: " + parabola.getMinX() + ", минимум: " + parabola.getMinFunc());
             System.out.println();
         }
-
     }
 }

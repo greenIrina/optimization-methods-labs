@@ -78,14 +78,4 @@ public class Parabola extends AbstractSolver implements Solver {
         }
         logger.writeInFile();
     }
-
-    @Override
-    public double getMinX() {
-        return minX;
-    }
-
-    @Override
-    public double getMinFunc() {
-        return minFunc;
-    }
 }

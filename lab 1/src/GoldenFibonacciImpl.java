@@ -78,14 +78,4 @@ public class GoldenFibonacciImpl extends AbstractSolver {
     public double getX2() {
         return x2;
     }
-
-    @Override
-    public double getMinX() {
-        return 0;
-    }
-
-    @Override
-    public double getMinFunc() {
-        return 0;
-    }
 }

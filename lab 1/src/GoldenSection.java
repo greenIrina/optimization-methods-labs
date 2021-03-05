@@ -25,14 +25,4 @@ public class GoldenSection extends AbstractSolver implements Solver {
         minFunc = calcFunc(minX);
         logger.writeInFile();
     }
-
-    @Override
-    public double getMinX() {
-        return minX;
-    }
-
-    @Override
-    public double getMinFunc() {
-        return minFunc;
-    }
 }
