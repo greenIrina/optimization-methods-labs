@@ -10,7 +10,6 @@ public class Main {
             epsilon = Double.parseDouble(String.format("1e%d", i));
 
             Solver dichotomy = new Dichotomy(leftBound, rightBound, epsilon);
-
             System.out.println("Метод дихотомии. Заданная точность: " + epsilon
                     + ". Точка минимума: " + dichotomy.getMinX() + ", минимум: " + dichotomy.getMinFunc());
 
@@ -27,7 +26,7 @@ public class Main {
                     + ". Точка минимума: " + parabola.getMinX() + ", минимум: " + parabola.getMinFunc());
 
             Solver brent = new Brent(leftBound,rightBound,epsilon);
-            System.out.println("Комбинированный Брента. Заданная точность: " + epsilon
+            System.out.println("Комбинированный метод Брента. Заданная точность: " + epsilon
                     + ". Точка минимума: " + brent.getMinX() + ", минимум: " + brent.getMinFunc());
             System.out.println();
         }
