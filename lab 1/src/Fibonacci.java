@@ -2,11 +2,13 @@ public class Fibonacci extends AbstractSolver implements Solver {
     private int iterationsNum;
     private double fibonacciN;
 
-    public Fibonacci(double leftBound, double rightBound) {
+    public Fibonacci(double leftBound, double rightBound, double epsilon) {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
+        this.epsilon = epsilon;
         iterationsNum = countIterationsNum();
-        calcMinX(false);
+        createLogger("F, eps=" + epsilon, 0);
+        calcMinX();
     }
 
     private double fibonacciNum(int k) {
@@ -21,7 +23,7 @@ public class Fibonacci extends AbstractSolver implements Solver {
     private int countIterationsNum() {
         int n = 0;
         double fibonacciN = fibonacciNum(n);
-        double condition = (rightBound - leftBound) / EPSILON;
+        double condition = (rightBound - leftBound) / epsilon;
         while (fibonacciN - condition <= 0) {
             n++;
             fibonacciN = fibonacciNum(n);
@@ -30,34 +32,23 @@ public class Fibonacci extends AbstractSolver implements Solver {
         return n;
     }
 
-    private void calcMinX(boolean printSteps) {
+    private void calcMinX() {
         double a = leftBound, b = rightBound;
         double l = (b - a) / fibonacciN;
         double x1 = a + l * fibonacciNum(iterationsNum - 2);
         double x2 = a + l * fibonacciNum(iterationsNum - 1);
         double fX1 = calcFunc(x1);
         double fX2 = calcFunc(x2);
-        int count = 0;
-        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, 0, count, printSteps);
+        int count = 0, cnt=2;
+        GoldenFibonacciImpl goldenFibonacciImpl = new GoldenFibonacciImpl(a, b, x1, x2, fX1, fX2, count, cnt, logger);
         for (int k = iterationsNum - 1; k > 1; k--) {
             goldenFibonacciImpl.calcMinImpl(false);
         }
+        cnt = goldenFibonacciImpl.getCnt();
         minX = (goldenFibonacciImpl.getX1() + goldenFibonacciImpl.getX2()) / 2;
         minFunc = calcFunc(minX);
-    }
-
-    @Override
-    public double getMinX() {
-        return minX;
-    }
-
-    @Override
-    public double getMinFunc() {
-        return minFunc;
-    }
-
-    @Override
-    public void printSteps() {
-        calcMinX(true);
+        cnt++;
+        logger.writeCntFunc(cnt);
+        logger.writeInFile();
     }
 }
