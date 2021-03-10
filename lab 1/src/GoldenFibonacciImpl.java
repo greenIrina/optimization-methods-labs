@@ -1,9 +1,11 @@
+import java.util.function.Function;
+
 public class GoldenFibonacciImpl extends AbstractSolver {
     private double a, b, x1, x2, fX1, fX2;
     private int count, cnt;
 
     public GoldenFibonacciImpl(double a, double b, double x1, double x2, double fX1, double fX2, int count, int cnt,
-                               Logger logger) {
+                               Logger logger, Function<Double, Double> function) {
         this.a = a;
         this.b = b;
         this.x1 = x1;
@@ -11,8 +13,9 @@ public class GoldenFibonacciImpl extends AbstractSolver {
         this.fX1 = fX1;
         this.fX2 = fX2;
         this.count = count;
-        this.cnt=cnt;
+        this.cnt = cnt;
         this.logger = logger;
+        this.function = function;
     }
 
     private double calcX1(boolean goldenSection) {
@@ -37,14 +40,14 @@ public class GoldenFibonacciImpl extends AbstractSolver {
             x2 = x1;
             fX2 = fX1;
             x1 = calcX1(goldenSection);
-            fX1 = calcFunc(x1);
+            fX1 = function.apply(x1);
             cnt++;
         } else {
             a = x1;
             x1 = x2;
             fX1 = fX2;
             x2 = calcX2(goldenSection);
-            fX2 = calcFunc(x2);
+            fX2 = function.apply(x2);
             cnt++;
         }
     }
