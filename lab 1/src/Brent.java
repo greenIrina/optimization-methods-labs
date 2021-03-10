@@ -11,7 +11,7 @@ public class Brent extends AbstractSolver implements Solver {
 
     private void calcMinX() {
         double a = leftBound, c = rightBound;
-        double x = a + K * (c - a), w = x, v = x;
+        double x = a + TAU_2 * (c - a), w = x, v = x;
         double fX = calcFunc(x), fW = fX, fV = fX;
         double d = c - a, e = d;
         List<Double> values;
@@ -44,10 +44,10 @@ public class Brent extends AbstractSolver implements Solver {
             }
             if (!parabolaU) {
                 if (x - (a + c) / 2 < 0) {
-                    u = x + K * (c - x);
+                    u = x + TAU_2 * (c - x);
                     e = c - x;
                 } else {
-                    u = x - K * (x - a);
+                    u = x - TAU_2 * (x - a);
                     e = x - a;
                 }
             }

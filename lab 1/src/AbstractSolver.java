@@ -5,8 +5,8 @@ import java.util.List;
 public abstract class AbstractSolver implements Solver {
     protected double leftBound, rightBound, minX, minFunc, epsilon;
     protected Logger logger;
-    protected static final double TAU = (Math.sqrt(5) - 1) / 2;
-    protected static final double K = (3 - Math.sqrt(5)) / 2;
+    protected static final double TAU_1 = (Math.sqrt(5) - 1) / 2;
+    protected static final double TAU_2 = (3 - Math.sqrt(5)) / 2;
 
     public double calcFunc(double x) {
         return -Math.pow(x, 0.2) + Math.pow(Math.log10(x - 2), 2) + Math.pow(Math.log10(10 - x), 2);
