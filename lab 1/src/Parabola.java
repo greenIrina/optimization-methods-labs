@@ -1,17 +1,19 @@
 import java.util.List;
+import java.util.function.Function;
 
 public class Parabola extends AbstractSolver implements Solver {
-    public Parabola(double leftBound, double rightBound, double epsilon) {
+    public Parabola(double leftBound, double rightBound, double epsilon, Function<Double, Double> function) {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.epsilon = epsilon;
+        this.function = function;
         createLogger("P, eps=" + epsilon, 1);
         calcMin();
     }
 
     private void calcMin() {
         double x1 = leftBound, x2 = (leftBound + rightBound) / 2, x3 = rightBound;
-        double fX1 = calcFunc(x1), fX2 = calcFunc(x2), fX3 = calcFunc(x3);
+        double fX1 = function.apply(x1), fX2 = function.apply(x2), fX3 = function.apply(x3);
         int k = 0, cnt = 3;
 
         List<Double> values = calcParabolaMin(x1, x2, x3, fX1, fX2, fX3);

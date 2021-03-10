@@ -1,10 +1,12 @@
 import java.util.List;
+import java.util.function.Function;
 
 public class Brent extends AbstractSolver implements Solver {
-    public Brent(double leftBound, double rightBound, double epsilon) {
+    public Brent(double leftBound, double rightBound, double epsilon, Function<Double, Double> function) {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.epsilon = epsilon;
+        this.function=function;
         createLogger("B, eps=" + epsilon, 2);
         calcMinX();
     }
@@ -12,7 +14,7 @@ public class Brent extends AbstractSolver implements Solver {
     private void calcMinX() {
         double a = leftBound, c = rightBound;
         double x = a + TAU_2 * (c - a), w = x, v = x;
-        double fX = calcFunc(x), fW = fX, fV = fX;
+        double fX = function.apply(x), fW = fX, fV = fX;
         double d = c - a, e = d;
         List<Double> values;
         double u = x, fU = fX;
@@ -55,7 +57,7 @@ public class Brent extends AbstractSolver implements Solver {
                 u = x + Math.signum(u - x) * tol;
             }
             d = Math.abs(u - x);
-            fU = calcFunc(u);
+            fU = function.apply(u);
             cnt++;
             if (fU - fX <= 0) {
                 if (u - x >= 0) {

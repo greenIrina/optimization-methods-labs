@@ -1,16 +1,15 @@
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 public abstract class AbstractSolver implements Solver {
     protected double leftBound, rightBound, minX, minFunc, epsilon;
     protected Logger logger;
     protected static final double TAU_1 = (Math.sqrt(5) - 1) / 2;
     protected static final double TAU_2 = (3 - Math.sqrt(5)) / 2;
+    protected Function<Double, Double> function;
 
-    public double calcFunc(double x) {
-        return -Math.pow(x, 0.2) + Math.pow(Math.log10(x - 2), 2) + Math.pow(Math.log10(10 - x), 2);
-    }
 
     protected List<String> headers(int type) {
         if (type == 0) {
@@ -50,7 +49,7 @@ public abstract class AbstractSolver implements Solver {
         a1 = (fX2 - fX1) / (x2 - x1);
         a2 = ((fX3 - fX1) / (x3 - x1) - (fX2 - fX1) / (x2 - x1)) / (x3 - x2);
         xMed = (x1 + x2 - a1 / a2) / 2;
-        fXMed = calcFunc(xMed);
+        fXMed = function.apply(xMed);
         return Arrays.asList(a1, a2, xMed, fXMed);
     }
 
