@@ -17,14 +17,14 @@ public class GoldenFibonacciImpl extends AbstractSolver {
 
     private double calcX1(boolean goldenSection) {
         if (goldenSection) {
-            return b - TAU * (b - a);
+            return b - TAU_1 * (b - a);
         }
         return a + (b - x2);
     }
 
     private double calcX2(boolean goldenSection) {
         if (goldenSection) {
-            return a + TAU * (b - a);
+            return a + TAU_1 * (b - a);
         }
         return b - (x1 - a);
     }

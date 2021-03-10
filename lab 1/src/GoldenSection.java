@@ -10,8 +10,8 @@ public class GoldenSection extends AbstractSolver implements Solver {
     private void calcMinX() {
         double epsilonN = 1, a = leftBound, b = rightBound;
         int count = 0;
-        double x1 = a + (3 - Math.sqrt(5)) * (b - a) / 2;
-        double x2 = a + (Math.sqrt(5) - 1) * (b - a) / 2;
+        double x1 = a + (b - a) * TAU_2;
+        double x2 = a + (b - a) * TAU_1;
         double fX1 = calcFunc(x1);
         double fX2 = calcFunc(x2);
         int cnt = 2;
