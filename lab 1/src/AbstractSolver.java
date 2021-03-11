@@ -19,7 +19,7 @@ public abstract class AbstractSolver implements Solver {
                     "отношение длин интервалов");
         } else if (type == 2) {
             return Arrays.asList("Step", "a", "c", "x", "w", "v", "f(x)", "f(w)", "f(v)", "u", "f(u)",
-                    "отношение длин интервалов", "");
+                    "отношение длин интервалов");
         }
         return Collections.emptyList();
     }

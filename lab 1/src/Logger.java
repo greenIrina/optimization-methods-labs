@@ -31,7 +31,7 @@ public class Logger {
 
     public void writeData(List<Double> values, int rowNum) {
         Row row = sheet.createRow(rowNum);
-        for (int j = 0; j < headersLength - 2; j++) {
+        for (int j = 0; j < headersLength - 1; j++) {
             Cell cell = row.createCell(j);
             cell.setCellValue(values.get(j));
             sheet.autoSizeColumn(j);
