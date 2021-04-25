@@ -8,15 +8,15 @@
 
 Реализовать алгоритмы одномерной минимизации функции:
 
-* метод дихотомии
+* [метод дихотомии](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/Dichotomy.java)
 
-* метод золотого сечения
+* [метод золотого сечения](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/GoldenSection.java)
 
-* метод Фиббоначи
+* [метод Фиббоначи](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/Fibonacci.java)
 
-* метод парабол
+* [метод парабол](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/Parabola.java)
 
-* комбинированный метод Брента.
+* [комбинированный метод Брента](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/Brent.java)
 
 Протестировать реализованные алгоритмы на следующей задаче оптимизации: найти минимум функции f(x) = (log10(x-2))^2 + (log10(10-x))^2 - x^(0.2) на отрезке [6, 9.9].
 
