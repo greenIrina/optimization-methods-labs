@@ -5,13 +5,13 @@ public class Main {
         double eps = 1e-5;
 
         QuadraticFunction quadraticFunction1 =
-                new FunctionGenerator(144., -120., -120., 144., 12., -30., 25., 264).getQuadraticFunction();
+                new FunctionGenerator(72., -120., 72., 12., -30., 25., 264).getQuadraticFunction();
         //72*x*x -120*x*y + 72*y*y + 12*x -30*y + 25
         QuadraticFunction quadraticFunction2 =
-                new FunctionGenerator(2., 2., 2., 4., 2., 4., 3., Math.sqrt(5) + 3).getQuadraticFunction();
+                new FunctionGenerator(1.,  2., 2., 2., 4., 3., Math.sqrt(5) + 3).getQuadraticFunction();
         //x*x + 2*x*y + 2*y*y + 2*x + 4*y + 3
         QuadraticFunction quadraticFunction3 =
-                new FunctionGenerator(5., 0., 0., 10., 12., 0., 2, 10).getQuadraticFunction();
+                new FunctionGenerator(2.5, 0., 5, 12., 0., 2, 10).getQuadraticFunction();
         //2.5*x*x + 5*y*y +12*x +2
         Vector nullVector = new Vector(Collections.nCopies(2, 0.0));
         printResult(true, quadraticFunction1, eps, nullVector);

@@ -6,15 +6,15 @@ import java.util.Random;
 public class FunctionGenerator {
     private final QuadraticFunction quadraticFunction;
 
-    public FunctionGenerator(double a11, double a12, double a21, double a22, double b1, double b2, double c, double l) {
+    public FunctionGenerator(double a1, double a2, double a3, double b1, double b2, double c, double l) {
         List<List<Double>> A = new ArrayList<>(Collections.nCopies(2, new ArrayList<>()));
         List<Double> tmp = new ArrayList<>();
-        tmp.add(a11);
-        tmp.add(a12);
+        tmp.add(a1 * 2);
+        tmp.add(a2);
         A.set(0, tmp);
         tmp = new ArrayList<>();
-        tmp.add(a21);
-        tmp.add(a22);
+        tmp.add(a2);
+        tmp.add(a3 * 2);
         A.set(1, tmp);
         List<Double> B = new ArrayList<>();
         B.add(b1);
