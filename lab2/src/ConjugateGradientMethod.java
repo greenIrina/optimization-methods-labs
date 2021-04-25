@@ -5,24 +5,26 @@ public class ConjugateGradientMethod extends AbstractSolver {
     }
 
     @Override
-    protected Pair calcMin(Vector x, double xFunc, Vector gradient, double length) {
-        Vector vectorP = gradient.multiplyByScalar(-1);
+    protected Pair calcMin(Vector xK, double xFunc, Vector gradient, double length) {
+        Vector x;
+        Vector nextGradient = quadraticFunction.gradient(xK);
+        Vector p = nextGradient.multiplyByScalar(-1);
         while (length >= epsilon) {
             iterationsNumber++;
-            Vector ap = quadraticFunction.getA().multiplyByVector(vectorP);
-            alpha = length / ap.scalarMultiplication(vectorP);
-            Vector nextX = x.sum(vectorP.multiplyByScalar(alpha)), nextGradient = gradient.sum(ap.multiplyByScalar(alpha));
-            double nextGradientLength = nextGradient.scalarMultiplication(nextGradient), beta;
-            if (iterationsNumber % x.size() == 0) {
-                beta = 0;
+            x = new Vector(xK);
+            gradient = new Vector(nextGradient);
+            Vector aP = quadraticFunction.getA().multiplyByVector(p);
+            length = gradient.scalarMultiplication(gradient);
+            double lambda = length / aP.scalarMultiplication(p);
+            xK = x.sum(p.multiplyByScalar(lambda));
+            nextGradient = gradient.sum(aP.multiplyByScalar(lambda));
+            if (iterationsNumber % quadraticFunction.getN() != 0) {
+                double beta = nextGradient.scalarMultiplication(nextGradient) / length;
+                p = quadraticFunction.gradient(xK).multiplyByScalar(-1).sum(p.multiplyByScalar(beta));
             } else {
-                beta = nextGradientLength / length;
+                nextGradient = quadraticFunction.gradient(xK).multiplyByScalar(-1);
             }
-            vectorP = nextGradient.multiplyByScalar(-1).sum(vectorP.multiplyByScalar(beta));
-            gradient = nextGradient;
-            length = nextGradientLength;
-            x = nextX;
         }
-        return new Pair(x, quadraticFunction.apply(x));
+        return new Pair(xK, quadraticFunction.apply(xK));
     }
 }
