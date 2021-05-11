@@ -22,6 +22,6 @@ public class SteepestDescent extends AbstractSolver {
 
     private void nextIter(Vector x, Vector gradient) {
         Function<Double, Double> functionAlpha = (Double alpha) -> quadraticFunction.apply(x.sum(gradient.multiplyByScalar(-alpha)));
-        alpha = new Fibonacci(0, quadraticFunction.getL(), epsilon, functionAlpha).getMinX();
+        alpha = new Brent(0, quadraticFunction.getL(), epsilon, functionAlpha).getMinX();
     }
 }

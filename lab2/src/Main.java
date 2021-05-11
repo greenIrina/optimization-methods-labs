@@ -2,28 +2,28 @@ import java.util.Collections;
 
 public class Main {
     public static void main(String[] args) {
-        double eps = 1e-5;
+        double eps = 1e-4;
 
         QuadraticFunction quadraticFunction1 =
                 new FunctionGenerator(72., -120., 72., 12., -30., 25., 264).getQuadraticFunction();
         //72*x*x -120*x*y + 72*y*y + 12*x -30*y + 25
         QuadraticFunction quadraticFunction2 =
-                new FunctionGenerator(1.,  2., 2., 2., 4., 3., Math.sqrt(5) + 3).getQuadraticFunction();
+                new FunctionGenerator(1., 2., 2., 2., 4., 3., Math.sqrt(5) + 3).getQuadraticFunction();
         //x*x + 2*x*y + 2*y*y + 2*x + 4*y + 3
         QuadraticFunction quadraticFunction3 =
                 new FunctionGenerator(2.5, 0., 5, 12., 0., 2, 10).getQuadraticFunction();
         //2.5*x*x + 5*y*y +12*x +2
-        Vector nullVector = new Vector(Collections.nCopies(2, 0.0));
-        printResult(true, quadraticFunction1, eps, nullVector);
-        printResult(true, quadraticFunction2, eps, nullVector);
-        printResult(true, quadraticFunction3, eps, nullVector);
+//        Vector nullVector = new Vector(Collections.nCopies(2, 0.0));
+//        printResult(true, quadraticFunction1, eps, nullVector);
+//        printResult(true, quadraticFunction2, eps, nullVector);
+//        printResult(true, quadraticFunction3, eps, nullVector);
 
-        //testRandom(eps);
+        testRandom(eps);
     }
 
     static void testRandom(double eps) {
-        int[] N = {10, 100, 1000, 2000};
-        int[] K = {5, 10, 50, 100, 500, 1000};
+        int[] N = {10, 100, 500, 1000, 2000};
+        int[] K = {1, 5, 10, 50, 100, 500, 1000};
         for (int n : N) {
             for (int k : K) {
                 QuadraticFunction quadraticFunctionRandom = new FunctionGenerator(n, k).getQuadraticFunction();
