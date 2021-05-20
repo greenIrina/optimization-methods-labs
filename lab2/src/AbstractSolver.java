@@ -14,7 +14,7 @@ public abstract class AbstractSolver implements Solver {
         Vector x = new Vector(startVector);
         double xFunc = quadraticFunction.apply(x);
         Vector gradient = quadraticFunction.gradient(x);
-        double length = gradient.length();
+        double length = gradient.sqrtLength();
         if (length < epsilon) {
             return new Pair(x, xFunc);
         }

@@ -13,10 +13,10 @@ public class Main {
         QuadraticFunction quadraticFunction3 =
                 new FunctionGenerator(2.5, 0., 5, 12., 0., 2, 10).getQuadraticFunction();
         //2.5*x*x + 5*y*y +12*x +2
-//        Vector nullVector = new Vector(Collections.nCopies(2, 0.0));
-//        printResult(true, quadraticFunction1, eps, nullVector);
-//        printResult(true, quadraticFunction2, eps, nullVector);
-//        printResult(true, quadraticFunction3, eps, nullVector);
+        Vector nullVector = new Vector(Collections.nCopies(2, 0.0));
+        printResult(true, quadraticFunction1, eps, nullVector);
+        printResult(true, quadraticFunction2, eps, nullVector);
+        printResult(true, quadraticFunction3, eps, nullVector);
 
         testRandom(eps);
     }

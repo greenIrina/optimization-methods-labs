@@ -13,7 +13,7 @@ public class GradientDescent extends AbstractSolver {
                 x = new Vector(y);
                 xFunc = yFunc;
                 gradient = quadraticFunction.gradient(x);
-                length = gradient.length();
+                length = gradient.sqrtLength();
             } else {
                 alpha /= 2;
             }

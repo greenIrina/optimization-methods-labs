@@ -15,7 +15,7 @@ public class SteepestDescent extends AbstractSolver {
             nextIter(x, gradient);
             x = x.sum(gradient.multiplyByScalar(-alpha));
             gradient = quadraticFunction.gradient(x);
-            length = gradient.length();
+            length = gradient.sqrtLength();
         }
         return new Pair(x, quadraticFunction.apply(x));
     }

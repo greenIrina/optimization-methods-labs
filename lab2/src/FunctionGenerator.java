@@ -26,11 +26,10 @@ public class FunctionGenerator {
 
     public FunctionGenerator(int n, int k) {
         List<List<Double>> a = new ArrayList<>(Collections.nCopies(n, new ArrayList<>()));
-        Random random = new Random();
         List<Double> tmp = new ArrayList<>(Collections.nCopies(n, 0.));
         tmp.set(0, 1.);
         a.set(0, tmp);
-        double prev = 1.0, step = k * 1.0 / n;
+        double prev = 1.0, step = k == 1 ? 0 : k * 1.0 / n;
         for (int i = 1; i < n - 1; i++) {
             tmp = new ArrayList<>(Collections.nCopies(n, 0.));
             tmp.set(i, prev + step);

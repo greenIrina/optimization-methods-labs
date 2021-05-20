@@ -49,8 +49,10 @@ public class Vector {
         for (double c : coefficients) {
             length += c*c;
         }
-        length = Math.sqrt(length);
         return length;
+    }
+    public double sqrtLength() {
+        return Math.sqrt(length());
     }
 
     public double get(int index) {
