@@ -4,17 +4,11 @@ import matrices.Matrix;
 import matrices.RegularMatrix;
 
 public class GaussSolver implements Solver {
-    private final Matrix matrix;
-    private final int n;
     private final double eps = 1e-32;
+    private final double[] x;
 
-    public GaussSolver(Matrix matrix) {
-        this.matrix = matrix;
-        this.n = matrix.getN();
-    }
-
-    @Override
-    public double[] solve(double[] b) {
+    public GaussSolver(Matrix matrix, double[] b) {
+        int n = matrix.getN();
         for (int k = 0; k < n - 1; k++) {
             double maxCoefficient = -Double.MAX_VALUE;
             int maxCoefficientInd = k;
@@ -30,9 +24,9 @@ public class GaussSolver implements Solver {
             b[k] = b[maxCoefficientInd];
             b[maxCoefficientInd] = tmp;
             final double kk = matrix.getElement(k, k);
-                if (Math.abs(kk) < eps) {
-                    throw new IllegalStateException("Zero or infinity solutions");
-                }
+            if (Math.abs(kk) < eps) {
+                throw new IllegalStateException("Zero or infinity solutions");
+            }
             for (int i = k + 1; i < n; i++) {
                 final double ik = matrix.getElement(i, k);
                 for (int j = k; j < n; j++) {
@@ -41,7 +35,7 @@ public class GaussSolver implements Solver {
                 b[i] -= ik * b[k] / kk;
             }
         }
-        double[] x = new double[n];
+        x = new double[n];
         for (int k = n - 1; k >= 0; k--) {
             double sum = b[k];
             for (int j = k + 1; j < n; j++) {
@@ -49,6 +43,10 @@ public class GaussSolver implements Solver {
             }
             x[k] = sum / matrix.getElement(k, k);
         }
+    }
+
+    @Override
+    public double[] solve() {
         return x;
     }
 }

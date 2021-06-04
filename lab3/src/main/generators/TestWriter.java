@@ -1,6 +1,5 @@
 package generators;
 
-import matrices.Matrix;
 import matrices.ProfileMatrix;
 import matrices.RegularMatrix;
 import solvers.GaussSolver;
@@ -19,7 +18,8 @@ import java.util.Scanner;
 public class TestWriter {
     private static final String luTestName = "./testsLU/testLU";
     private static final String hilbertTestName = "./testsHilbert/testHilbert";
-    private static final String header = "n\tk\t||x*-xk||\t||x*-xk||/||x*||";
+    private static final String headerLU = "n\tk\t||x*-xk||\t||x*-xk||/||x*||";
+    private static final String headerHilbert = "n\t||x*-xk||\t||x*-xk||/||x*||";
 
     public static void generateLUTests() {
         for (int n = 10; n < 10000; n *= 10) {
@@ -96,38 +96,7 @@ public class TestWriter {
                     System.err.println("IOException");
                     return;
                 }
-                ProfileMatrix inputMatrix = taskPair.matrix;
-                LUSolver solver = new LUSolver(inputMatrix.getN(), inputMatrix);
-                Path outputFilePath = Path.of(fileName + "LU.txt");
-                try (BufferedWriter bufferedWriter = Files.newBufferedWriter(outputFilePath)) {
-                    Matrix matrix1 = solver.getL();
-                    Matrix matrix2 = solver.getU();
-                    bufferedWriter.write("Input Matrix\n");
-                    for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < n; j++) {
-                            bufferedWriter.write(inputMatrix.getElement(i, j) + " ");
-                        }
-                        bufferedWriter.write("\n");
-                    }
-                    bufferedWriter.write("L\n");
-                    for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < n; j++) {
-                            bufferedWriter.write(matrix1.getElement(i, j) + " ");
-                        }
-                        bufferedWriter.write("\n");
-                    }
-                    bufferedWriter.write("U\n");
-                    for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < n; j++) {
-                            bufferedWriter.write(matrix2.getElement(i, j) + " ");
-                        }
-                        bufferedWriter.write("\n");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //write(, taskPair.b, fileName + "Answer.txt");
+                write(new LUSolver(taskPair.matrix, taskPair.b), fileName + "Answer.txt");
             }
         }
     }
@@ -140,8 +109,7 @@ public class TestWriter {
                 System.err.println("IOException");
                 return;
             }
-            ProfileMatrix inputMatrix = taskPair.matrix;
-            write(new LUSolver(inputMatrix.getN(), inputMatrix), taskPair.b, fileName + "Answer.txt");
+            write(new LUSolver(taskPair.matrix, taskPair.b), fileName + "Answer.txt");
         }
     }
 
@@ -154,8 +122,7 @@ public class TestWriter {
                     System.err.println("IOException");
                     return;
                 }
-                RegularMatrix inputMatrix = new RegularMatrix(taskPair.matrix);
-                write(new GaussSolver(inputMatrix), taskPair.b, fileName + "AnswerGauss.txt");
+                write(new GaussSolver(new RegularMatrix(taskPair.matrix), taskPair.b), fileName + "AnswerGauss.txt");
             }
         }
     }
@@ -168,8 +135,7 @@ public class TestWriter {
                 System.err.println("IOException");
                 return;
             }
-            RegularMatrix inputMatrix = new RegularMatrix(taskPair.matrix);
-            write(new GaussSolver(inputMatrix), taskPair.b, fileName + "AnswerGauss.txt");
+            write(new GaussSolver(new RegularMatrix(taskPair.matrix), taskPair.b), fileName + "AnswerGauss.txt");
         }
     }
 
@@ -219,8 +185,8 @@ public class TestWriter {
         }
     }
 
-    private static void write(Solver solver, double[] b, String outputFileName) {
-        double[] x = solver.solve(b);
+    private static void write(Solver solver, String outputFileName) {
+        double[] x = solver.solve();
         Path outputFilePath = Path.of(outputFileName);
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(outputFilePath)) {
             Arrays.stream(x).forEach(el -> {
@@ -237,7 +203,7 @@ public class TestWriter {
 
     public static void printAllTableLUGauss() {
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of("./luTableGauss.txt"))) {
-            bufferedWriter.write(header + System.lineSeparator());
+            bufferedWriter.write(headerLU + System.lineSeparator());
             for (int n = 10; n < 10000; n *= 10) {
                 for (int k = 0; k < 10; k++) {
                     try (Scanner scanner = new Scanner(Path.of(luTestName + n + "_" + k + "AnswerGauss.txt"))) {
@@ -255,7 +221,7 @@ public class TestWriter {
 
     public static void printAllTableHilbertGauss() {
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of("./hilbertTableGauss.txt"))) {
-            bufferedWriter.write(header + System.lineSeparator());
+            bufferedWriter.write(headerHilbert + System.lineSeparator());
             for (int n = 2; n < 2048; n *= 2) {
                 try (Scanner scanner = new Scanner(Path.of(hilbertTestName + n + "AnswerGauss.txt"))) {
                     double[] ans = printTable(n, scanner);
@@ -270,7 +236,7 @@ public class TestWriter {
 
     public static void printAllTableLU() {
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of("./luTable.txt"))) {
-            bufferedWriter.write(header + System.lineSeparator());
+            bufferedWriter.write(headerLU + System.lineSeparator());
             for (int n = 10; n < 10000; n *= 10) {
                 for (int k = 0; k < 10; k++) {
                     try (Scanner scanner = new Scanner(Path.of(luTestName + n + "_" + k + "Answer.txt"))) {
@@ -288,7 +254,7 @@ public class TestWriter {
 
     public static void printAllTableHilbert() {
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of("./hilbertTable.txt"))) {
-            bufferedWriter.write(header + System.lineSeparator());
+            bufferedWriter.write(headerHilbert + System.lineSeparator());
             for (int n = 2; n < 2048; n *= 2) {
                 try (Scanner scanner = new Scanner(Path.of(hilbertTestName + n + "Answer.txt"))) {
                     double[] ans = printTable(n, scanner);

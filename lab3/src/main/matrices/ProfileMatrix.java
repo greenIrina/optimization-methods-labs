@@ -23,14 +23,6 @@ public class ProfileMatrix implements Matrix {
         this(n, new RegularMatrix(n, matrix));
     }
 
-    public ProfileMatrix(ProfileMatrix profileMatrix) {
-        n = profileMatrix.getN();
-        diagonal = new ArrayList<>(profileMatrix.diagonal);
-        al = new ArrayList<>(profileMatrix.al);
-        au = new ArrayList<>(profileMatrix.au);
-        ia = new ArrayList<>(profileMatrix.ia);
-    }
-
     private ProfileMatrix(int n, Matrix matrix) {
         this.n = n;
         diagonal = new ArrayList<>();
@@ -89,25 +81,20 @@ public class ProfileMatrix implements Matrix {
             return diagonal.get(i);
         }
         if (j < i) {
-            return getUpperOrLowerElement(true, i, j);
+            return getUpperOrLowerElement(i, j, true);
         } else {
-            return getUpperOrLowerElement(false, j, i);
+            return getUpperOrLowerElement(j, i, false);
         }
     }
 
     @Override
     public void setElement(int i, int j, double element) {
-//        if (i != j &&
-//                (i < j && profileLength(j) < j - i || j < i && profileLength(i) < i - j)
-//                || (element == 0 && getElement(j, i) != 0)) {
-//            throw new UnsupportedOperationException("Can't change profile");
-//        }
         if (i == j) {
             diagonal.set(i, element);
         } else if (j < i) {
-            al.set(indexInTriangle(j, i), element);
+            setUpperOrLower(i, j, element, true);
         } else {
-            au.set(indexInTriangle(i, j), element);
+            setUpperOrLower(j, i, element, false);
         }
     }
 
@@ -120,10 +107,20 @@ public class ProfileMatrix implements Matrix {
         return ia.get(i + 1) - ia.get(i);
     }
 
+    private void setUpperOrLower(int i, int j, double element, boolean isLower) {
+        if (j < i - profileLength(i)) {
+            return;
+        }
+        if (isLower) {
+            al.set(indexInTriangle(i, j), element);
+        } else {
+            au.set(indexInTriangle(i, j), element);
+        }
+    }
 
-    private double getUpperOrLowerElement(boolean isLower, int i, int j) {
-        int len = profileLength(i);
-        if (j < i - len) {
+
+    private double getUpperOrLowerElement(int i, int j, boolean isLower) {
+        if (j < i - profileLength(i)) {
             return 0.;
         }
         if (isLower) {
