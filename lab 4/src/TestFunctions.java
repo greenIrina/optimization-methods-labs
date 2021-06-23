@@ -1,3 +1,8 @@
+import utils.FunctionExpression;
+import utils.Matrix;
+import utils.Pair;
+import utils.Vector;
+
 import java.util.function.Function;
 
 public class TestFunctions {

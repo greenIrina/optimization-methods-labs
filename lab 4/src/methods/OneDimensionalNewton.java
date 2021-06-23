@@ -1,5 +1,11 @@
-public class ClassicNewton extends AbstractNewton implements Newton {
-    public ClassicNewton(FunctionExpression function) {
+package methods;
+
+import utils.FunctionExpression;
+import utils.Matrix;
+import utils.Vector;
+
+public class OneDimensionalNewton extends AbstractNewton implements Newton {
+    public OneDimensionalNewton(FunctionExpression function) {
         super(function);
     }
 
@@ -10,6 +16,7 @@ public class ClassicNewton extends AbstractNewton implements Newton {
         Matrix hessian = function.hessian(vector);
         GaussSolver gaussSolver = new GaussSolver(hessian, gradient.multiplyByScalar(-1), epsilon);
         Vector pk = gaussSolver.solve();
-        return vector.sum(pk);
+        double alpha = findAlpha(vector, pk);
+        return vector.sum(pk.multiplyByScalar(alpha));
     }
 }

@@ -1,3 +1,11 @@
+import methods.ClassicNewton;
+import methods.DescentNewton;
+import methods.Newton;
+import methods.OneDimensionalNewton;
+import utils.FunctionExpression;
+import utils.Pair;
+import utils.Vector;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("first func");
@@ -13,8 +21,8 @@ public class Main {
     }
 
     private static void print(Pair pair) {
-        Vector startVector = pair.startVector;
-        FunctionExpression functionExpression = pair.functionExpression;
+        Vector startVector = pair.getStartVector();
+        FunctionExpression functionExpression = pair.getFunctionExpression();
         printMethod(startVector, new ClassicNewton(functionExpression));
         printMethod(startVector, new OneDimensionalNewton(functionExpression));
         printMethod(startVector, new DescentNewton(functionExpression));

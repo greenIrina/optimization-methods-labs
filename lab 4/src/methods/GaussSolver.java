@@ -1,5 +1,9 @@
+package methods;
+
+import utils.Matrix;
+import utils.Vector;
+
 public class GaussSolver {
-    private final double eps=1e-32;
     private final double[] x;
 
     public GaussSolver(Matrix matrix, Vector b, double eps) {

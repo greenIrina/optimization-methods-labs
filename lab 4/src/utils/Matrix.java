@@ -1,3 +1,5 @@
+package utils;
+
 public class Matrix {
     private final int n;
     private final double[][] matrix;
@@ -35,7 +37,7 @@ public class Matrix {
         matrix[row2] = tmp;
     }
 
-    public Vector multiplyByVector(Vector vector)  {
+    public Vector multiplyByVector(Vector vector) {
         Vector res = new Vector();
         for (double[] vec : matrix) {
             res.add(vector.scalarMultiplication(new Vector(vec)));

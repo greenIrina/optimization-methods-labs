@@ -1,3 +1,8 @@
+package methods;
+
+import utils.FunctionExpression;
+import utils.Vector;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -40,7 +45,7 @@ public abstract class AbstractNewton implements Newton {
 //        double left = -10, right = 200;
 //        double alpha = right / 1000;
 //        while (alpha < right) {
-//            double min = new GoldenSection(left, alpha, epsilon, alphaFunction).findMin();
+//            double min = new methods.GoldenSection(left, alpha, epsilon, alphaFunction).findMin();
 //            if (alpha - min <= epsilon) {
 //                alpha *= 2;
 //            } else {
