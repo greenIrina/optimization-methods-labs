@@ -1,5 +1,5 @@
 public interface Solver {
-    Pair findMin(Vector startVector);
+    Pair findMin(DoubleVector startVector);
 
     long getIterationsNumber();
 }

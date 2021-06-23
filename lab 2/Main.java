@@ -5,20 +5,20 @@ public class Main {
         double eps = 1e-4;
 
         QuadraticFunction quadraticFunction1 =
-                new FunctionGenerator(72., -120., 72., 12., -30., 25., 264).getQuadraticFunction();
+                new FunctionGenerator(1., -1.2, 1., 0., 0., 0., 16. / 5).getQuadraticFunction();
         //72*x*x -120*x*y + 72*y*y + 12*x -30*y + 25
-        QuadraticFunction quadraticFunction2 =
-                new FunctionGenerator(1., 2., 2., 2., 4., 3., Math.sqrt(5) + 3).getQuadraticFunction();
+//        QuadraticFunction quadraticFunction2 =
+//                new FunctionGenerator(1., 2., 2., 2., 4., 3., Math.sqrt(5) + 3).getQuadraticFunction();
         //x*x + 2*x*y + 2*y*y + 2*x + 4*y + 3
-        QuadraticFunction quadraticFunction3 =
-                new FunctionGenerator(2.5, 0., 5, 12., 0., 2, 10).getQuadraticFunction();
+//        QuadraticFunction quadraticFunction3 =
+//                new FunctionGenerator(2.5, 0., 5, 12., 0., 2, 10).getQuadraticFunction();
         //2.5*x*x + 5*y*y +12*x +2
-        Vector nullVector = new Vector(Collections.nCopies(2, 0.0));
-        printResult(true, quadraticFunction1, eps, nullVector);
-        printResult(true, quadraticFunction2, eps, nullVector);
-        printResult(true, quadraticFunction3, eps, nullVector);
+//        DoubleVector nullVector = new DoubleVector(Collections.nCopies(2, 0.0));
+        printResult(true, quadraticFunction1, eps, new DoubleVector(new double[]{4, 1}));
+//        printResult(true, quadraticFunction2, eps, nullVector);
+//        printResult(true, quadraticFunction3, eps, nullVector);
 
-        testRandom(eps);
+//        testRandom(eps);
     }
 
     static void testRandom(double eps) {
@@ -28,12 +28,12 @@ public class Main {
             for (int k : K) {
                 QuadraticFunction quadraticFunctionRandom = new FunctionGenerator(n, k).getQuadraticFunction();
                 System.out.println("n = " + n + ", k = " + k);
-                printResult(false, quadraticFunctionRandom, eps, new Vector(Collections.nCopies(n, 1.0)));
+                printResult(false, quadraticFunctionRandom, eps, new DoubleVector(Collections.nCopies(n, 1.0)));
             }
         }
     }
 
-    static void printResult(boolean printVector, QuadraticFunction quadraticFunction, double eps, Vector startVector) {
+    static void printResult(boolean printVector, QuadraticFunction quadraticFunction, double eps, DoubleVector startVector) {
         GradientDescent gradientDescent = new GradientDescent(eps, quadraticFunction);
         printMethod(printVector, gradientDescent, startVector);
 
@@ -45,7 +45,7 @@ public class Main {
         System.out.println();
     }
 
-    static void printMethod(boolean printVector, Solver method, Vector startVector) {
+    static void printMethod(boolean printVector, Solver method, DoubleVector startVector) {
         System.out.println("\t" + method.getClass().getSimpleName());
         Pair answer = method.findMin(startVector);
         if (printVector) {

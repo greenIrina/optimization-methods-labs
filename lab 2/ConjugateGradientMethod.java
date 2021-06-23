@@ -5,15 +5,15 @@ public class ConjugateGradientMethod extends AbstractSolver {
     }
 
     @Override
-    protected Pair calcMin(Vector xK, double xFunc, Vector gradient, double length) {
-        Vector x;
-        Vector nextGradient = gradient;
-        Vector p = nextGradient.multiplyByScalar(-1);
+    protected Pair calcMin(DoubleVector xK, double xFunc, DoubleVector gradient, double length) {
+        DoubleVector x;
+        DoubleVector nextGradient = gradient;
+        DoubleVector p = nextGradient.multiplyByScalar(-1);
         while (length >= epsilon) {
             iterationsNumber++;
-            x = new Vector(xK);
-            gradient = new Vector(nextGradient);
-            Vector aP = quadraticFunction.getA().multiplyByVector(p);
+            x = new DoubleVector(xK);
+            gradient = new DoubleVector(nextGradient);
+            DoubleVector aP = quadraticFunction.getA().multiplyByVector(p);
             length = gradient.length();
             double lambda = length / aP.scalarMultiplication(p);
             xK = x.sum(p.multiplyByScalar(lambda));

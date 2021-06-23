@@ -10,10 +10,10 @@ public abstract class AbstractSolver implements Solver {
         iterationsNumber = 0;
     }
 
-    public Pair findMin(Vector startVector) {
-        Vector x = new Vector(startVector);
+    public Pair findMin(DoubleVector startVector) {
+        DoubleVector x = new DoubleVector(startVector);
         double xFunc = quadraticFunction.apply(x);
-        Vector gradient = quadraticFunction.gradient(x);
+        DoubleVector gradient = quadraticFunction.gradient(x);
         double length = gradient.sqrtLength();
         if (length < epsilon) {
             return new Pair(x, xFunc);
@@ -22,7 +22,7 @@ public abstract class AbstractSolver implements Solver {
         return calcMin(x, xFunc, gradient, length);
     }
 
-    protected Pair calcMin(Vector x, double xFunc, Vector gradient, double length) {
+    protected Pair calcMin(DoubleVector x, double xFunc, DoubleVector gradient, double length) {
         return new Pair(x, xFunc);
     }
 

@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class FunctionGenerator {
     private final QuadraticFunction quadraticFunction;
@@ -20,7 +19,7 @@ public class FunctionGenerator {
         B.add(b1);
         B.add(b2);
         Matrix a = new Matrix(A);
-        Vector b = new Vector(B);
+        DoubleVector b = new DoubleVector(B);
         quadraticFunction = new QuadraticFunction(a, b, c, l);
     }
 
@@ -39,7 +38,7 @@ public class FunctionGenerator {
         tmp = new ArrayList<>(Collections.nCopies(n, 0.));
         tmp.set(n - 1, k * 1.);
         a.set(n - 1, tmp);
-        quadraticFunction = new QuadraticFunction(new Matrix(a), new Vector(new ArrayList<>(Collections.nCopies(n, 0.))), 0, k);
+        quadraticFunction = new QuadraticFunction(new Matrix(a), new DoubleVector(new ArrayList<>(Collections.nCopies(n, 0.))), 0, k);
 
     }
 

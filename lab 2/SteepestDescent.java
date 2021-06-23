@@ -9,7 +9,7 @@ public class SteepestDescent extends AbstractSolver {
     }
 
     @Override
-    protected Pair calcMin(Vector x, double xFunc, Vector gradient, double length) {
+    protected Pair calcMin(DoubleVector x, double xFunc, DoubleVector gradient, double length) {
         while (length >= epsilon) {
             iterationsNumber++;
             nextIter(x, gradient);
@@ -20,8 +20,8 @@ public class SteepestDescent extends AbstractSolver {
         return new Pair(x, quadraticFunction.apply(x));
     }
 
-    private void nextIter(Vector x, Vector gradient) {
+    private void nextIter(DoubleVector x, DoubleVector gradient) {
         Function<Double, Double> functionAlpha = (Double alpha) -> quadraticFunction.apply(x.sum(gradient.multiplyByScalar(-alpha)));
-        alpha = new Brent(0, quadraticFunction.getL(), epsilon, functionAlpha).getMinX();
+        alpha = new GoldenSection(0, quadraticFunction.getL(), epsilon, functionAlpha).getMinX();
     }
 }

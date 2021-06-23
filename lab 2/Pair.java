@@ -1,19 +1,17 @@
-import java.util.function.Function;
-
 public class Pair {
-    private Vector value;
+    private DoubleVector value;
     private double funcValue;
 
-    public Pair(Vector value, double funcValue) {
+    public Pair(DoubleVector value, double funcValue) {
         this.value = value;
         this.funcValue = funcValue;
     }
 
-    public Vector getValue() {
+    public DoubleVector getValue() {
         return value;
     }
 
-    public void setValue(Vector value) {
+    public void setValue(DoubleVector value) {
         this.value = value;
     }
 
