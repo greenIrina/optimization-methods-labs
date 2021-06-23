@@ -1,7 +1,7 @@
 package methods;
 
 import utils.FunctionExpression;
-import utils.Vector;
+import utils.DoubleVector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +19,15 @@ public abstract class AbstractNewton implements Newton {
         this.function = function;
     }
 
-    public Vector solve(Vector startVector) {
+    public DoubleVector solve(DoubleVector startVector) {
         first = new ArrayList<>();
         second = new ArrayList<>();
-        Vector vector = new Vector(startVector);
-        Vector newVector = makeIteration(vector);
+        DoubleVector vector = new DoubleVector(startVector);
+        DoubleVector newVector = makeIteration(vector);
         first.add(vector.get(0));
         second.add(vector.get(1));
         while (vector.sum(newVector.multiplyByScalar(-1)).sqrtLength() >= epsilon) {
-            vector = new Vector(newVector);
+            vector = new DoubleVector(newVector);
             first.add(vector.get(0));
             second.add(vector.get(1));
             newVector = makeIteration(vector);
@@ -35,12 +35,12 @@ public abstract class AbstractNewton implements Newton {
         return vector;
     }
 
-    protected Vector makeIteration(Vector vector) {
+    protected DoubleVector makeIteration(DoubleVector vector) {
         iterationsNumber++;
         return vector;
     }
 
-    protected double findAlpha(Vector x, Vector pk) {
+    protected double findAlpha(DoubleVector x, DoubleVector pk) {
         final Function<Double, Double> alphaFunction = (alpha) -> (function.apply(x.sum(pk.multiplyByScalar(alpha))));
 //        double left = -10, right = 200;
 //        double alpha = right / 1000;

@@ -2,49 +2,58 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
-public class Vector {
+public class DoubleVector {
     private final List<Double> coefficients;
 
-    public Vector(List<Double> coefficients) {
+    public DoubleVector(List<Double> coefficients) {
         this.coefficients = new ArrayList<>(coefficients);
     }
 
-    public Vector(double[] coefficients) {
+    public DoubleVector(double[] coefficients) {
         this.coefficients = new ArrayList<>();
         for (double el : coefficients) {
             this.coefficients.add(el);
         }
     }
 
-    public Vector(Vector vector) {
+    public DoubleVector(DoubleVector vector) {
         this(vector.getCoefficients());
     }
 
-    public Vector() {
+    public DoubleVector() {
         this(new ArrayList<>());
     }
 
-    public Vector multiplyByScalar(double coefficient) {
-        Vector result = new Vector();
+    public DoubleVector multiplyByScalar(double coefficient) {
+        DoubleVector result = new DoubleVector();
         for (Double aDouble : coefficients) {
             result.add(aDouble * coefficient);
         }
         return result;
     }
 
-    public Vector sum(Vector vector) {
-        Vector res = new Vector();
+    public DoubleVector sum(DoubleVector vector) {
+        DoubleVector res = new DoubleVector();
         for (int i = 0; i < vector.size(); i++) {
             res.add(coefficients.get(i) + vector.get(i));
         }
         return res;
     }
 
-    public double scalarMultiplication(Vector vector) {
+    public double scalarMultiplication(DoubleVector vector) {
         double res = 0;
         for (int i = 0; i < vector.size(); i++) {
             res += this.coefficients.get(i) * vector.get(i);
+        }
+        return res;
+    }
+
+    public double[] toArray() {
+        double[] res = new double[size()];
+        for (int i = 0; i < size(); i++) {
+            res[i] = coefficients.get(i);
         }
         return res;
     }
@@ -79,6 +88,17 @@ public class Vector {
 
     public List<Double> getCoefficients() {
         return coefficients;
+    }
+
+    public Matrix multiplyByTransposed() {
+        int n = size();
+        double[][] data = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                data[i][j] += get(i) * get(j);
+            }
+        }
+        return new Matrix(data);
     }
 
 }

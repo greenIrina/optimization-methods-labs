@@ -2,9 +2,9 @@ package utils;
 
 public class Pair {
     private FunctionExpression functionExpression;
-    private Vector startVector;
+    private DoubleVector startVector;
 
-    public Pair(FunctionExpression functionExpression, Vector startVector) {
+    public Pair(FunctionExpression functionExpression, DoubleVector startVector) {
         this.functionExpression = functionExpression;
         this.startVector = startVector;
     }
@@ -17,11 +17,11 @@ public class Pair {
         this.functionExpression = functionExpression;
     }
 
-    public Vector getStartVector() {
+    public DoubleVector getStartVector() {
         return startVector;
     }
 
-    public void setStartVector(Vector startVector) {
+    public void setStartVector(DoubleVector startVector) {
         this.startVector = startVector;
     }
 }

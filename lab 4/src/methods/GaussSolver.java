@@ -1,12 +1,12 @@
 package methods;
 
 import utils.Matrix;
-import utils.Vector;
+import utils.DoubleVector;
 
 public class GaussSolver {
     private final double[] x;
 
-    public GaussSolver(Matrix matrix, Vector b, double eps) {
+    public GaussSolver(Matrix matrix, DoubleVector b, double eps) {
         int n = matrix.getN();
         for (int k = 0; k < n - 1; k++) {
             double maxCoefficient = -Double.MAX_VALUE;
@@ -45,7 +45,7 @@ public class GaussSolver {
     }
 
 
-    public Vector solve() {
-        return new Vector(x);
+    public DoubleVector solve() {
+        return new DoubleVector(x);
     }
 }

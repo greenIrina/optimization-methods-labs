@@ -2,7 +2,7 @@ package methods;
 
 import utils.FunctionExpression;
 import utils.Matrix;
-import utils.Vector;
+import utils.DoubleVector;
 
 public class DescentNewton extends AbstractNewton implements Newton {
     public DescentNewton(FunctionExpression function) {
@@ -10,12 +10,12 @@ public class DescentNewton extends AbstractNewton implements Newton {
     }
 
     @Override
-    protected Vector makeIteration(Vector vector) {
+    protected DoubleVector makeIteration(DoubleVector vector) {
         iterationsNumber++;
-        Vector gradient = function.gradient(vector);
+        DoubleVector gradient = function.gradient(vector);
         Matrix hessian = function.hessian(vector);
         GaussSolver gaussSolver = new GaussSolver(hessian, gradient.multiplyByScalar(-1), epsilon);
-        Vector pk = gaussSolver.solve();
+        DoubleVector pk = gaussSolver.solve();
         if (pk.scalarMultiplication(gradient) > 0) {
             pk = gradient.multiplyByScalar(-1);
         }

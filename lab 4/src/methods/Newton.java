@@ -1,9 +1,9 @@
 package methods;
 
-import utils.Vector;
+import utils.DoubleVector;
 
 public interface Newton {
-    Vector solve(Vector vector);
+    DoubleVector solve(DoubleVector vector);
 
     int getIterationsNumber();
 

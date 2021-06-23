@@ -3,26 +3,26 @@ package utils;
 import java.util.function.Function;
 
 public class FunctionExpression {
-    private final Function<Vector, Double> function;
-    private final Function<Vector, Vector> gradient;
-    private final Function<Vector, Matrix> hessian;
+    private final Function<DoubleVector, Double> function;
+    private final Function<DoubleVector, DoubleVector> gradient;
+    private final Function<DoubleVector, Matrix> hessian;
 
-    public FunctionExpression(Function<Vector, Double> function, Function<Vector, Vector> gradient,
-                              Function<Vector, Matrix> hessian) {
+    public FunctionExpression(Function<DoubleVector, Double> function, Function<DoubleVector, DoubleVector> gradient,
+                              Function<DoubleVector, Matrix> hessian) {
         this.function = function;
         this.gradient = gradient;
         this.hessian = hessian;
     }
 
-    public double apply(Vector x) {
+    public double apply(DoubleVector x) {
         return function.apply(x);
     }
 
-    public Vector gradient(Vector x) {
+    public DoubleVector gradient(DoubleVector x) {
         return gradient.apply(x);
     }
 
-    public Matrix hessian(Vector x) {
+    public Matrix hessian(DoubleVector x) {
         return hessian.apply(x);
     }
 }
