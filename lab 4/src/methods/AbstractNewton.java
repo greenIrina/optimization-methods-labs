@@ -20,6 +20,7 @@ public abstract class AbstractNewton implements Newton {
     }
 
     public DoubleVector solve(DoubleVector startVector) {
+        iterationsNumber = 0;
         first = new ArrayList<>();
         second = new ArrayList<>();
         DoubleVector vector = new DoubleVector(startVector);
@@ -38,23 +39,10 @@ public abstract class AbstractNewton implements Newton {
         return newVector;
     }
 
-    protected DoubleVector makeIteration(DoubleVector vector) {
-        iterationsNumber++;
-        return vector;
-    }
+    protected abstract DoubleVector makeIteration(DoubleVector vector);
 
     protected double findAlpha(DoubleVector x, DoubleVector pk) {
         final Function<Double, Double> alphaFunction = (alpha) -> (function.apply(x.sum(pk.multiplyByScalar(alpha))));
-//        double left = -10, right = 200;
-//        double alpha = right / 1000;
-//        while (alpha < right) {
-//            double min = new methods.GoldenSection(left, alpha, epsilon, alphaFunction).findMin();
-//            if (alpha - min <= epsilon) {
-//                alpha *= 2;
-//            } else {
-//                return min;
-//            }
-//        }
         return new GoldenSection(-10, 10, epsilon / 10, alphaFunction).findMin();
     }
 

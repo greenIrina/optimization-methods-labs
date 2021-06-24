@@ -25,7 +25,7 @@ public class TestFunctions {
         Function<DoubleVector, Matrix> hessian = (x) -> (new Matrix(new double[][]
                 {{1200 * Math.pow(x.get(0), 2) - 400 * x.get(1) + 2, -400 * x.get(0)}, {-400 * x.get(0), 200.0}}));
         FunctionExpression functionExpression2 = new FunctionExpression(function, gradient, hessian);
-        final DoubleVector startVector2 = new DoubleVector(new double[]{1, 1});
+        final DoubleVector startVector2 = new DoubleVector(new double[]{4, 1});
         return new Pair(functionExpression2, startVector2);
     }
 
