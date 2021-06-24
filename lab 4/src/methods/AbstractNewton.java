@@ -26,13 +26,16 @@ public abstract class AbstractNewton implements Newton {
         DoubleVector newVector = makeIteration(vector);
         first.add(vector.get(0));
         second.add(vector.get(1));
+        if (vector.sum(newVector.multiplyByScalar(-1)).sqrtLength() < epsilon)
+            return vector;
         while (vector.sum(newVector.multiplyByScalar(-1)).sqrtLength() >= epsilon) {
             vector = new DoubleVector(newVector);
             first.add(vector.get(0));
             second.add(vector.get(1));
             newVector = makeIteration(vector);
         }
-        return vector;
+        iterationsNumber--;
+        return newVector;
     }
 
     protected DoubleVector makeIteration(DoubleVector vector) {
@@ -52,7 +55,7 @@ public abstract class AbstractNewton implements Newton {
 //                return min;
 //            }
 //        }
-        return new GoldenSection(-10, 10, epsilon/10, alphaFunction).findMin();
+        return new GoldenSection(-10, 10, epsilon / 10, alphaFunction).findMin();
     }
 
     public int getIterationsNumber() {

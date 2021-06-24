@@ -29,6 +29,19 @@ public class Matrix {
         return new Matrix(matrix);
     }
 
+    public static Matrix diagonal(int n) {
+        double[][] matrix = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = 0;
+                if (i == j) {
+                    matrix[i][i] = 1;
+                }
+            }
+        }
+        return new Matrix(matrix);
+    }
+
     public int getN() {
         return n;
     }
@@ -67,7 +80,7 @@ public class Matrix {
         double[][] res = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                res[i][j]=matrix[j][i];
+                res[i][j] = matrix[j][i];
             }
         }
         return new Matrix(res);

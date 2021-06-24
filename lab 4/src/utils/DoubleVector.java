@@ -101,4 +101,15 @@ public class DoubleVector {
         return new Matrix(data);
     }
 
+    public Matrix multiplyByTransposed(DoubleVector vector) {
+        int n = size();
+        double[][] data = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                data[i][j] += get(i) * vector.get(j);
+            }
+        }
+        return new Matrix(data);
+    }
+
 }

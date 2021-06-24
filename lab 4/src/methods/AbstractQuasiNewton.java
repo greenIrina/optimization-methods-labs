@@ -11,26 +11,28 @@ public abstract class AbstractQuasiNewton extends AbstractNewton implements Newt
 
     @Override
     public DoubleVector solve(DoubleVector start) {
-        iterationsNumber++;
-        int dim = start.size();
-        Matrix G = Matrix.unary(dim);
-        DoubleVector W = function.gradient(start).multiplyByScalar(-1);
-        DoubleVector deltaW = new DoubleVector(new double[dim]);
-        DoubleVector x0 = new DoubleVector(start);
-        DoubleVector P = new DoubleVector(W);
-        double alpha = findAlpha(x0, P);
-        DoubleVector x1 = x0.sum(P.multiplyByScalar(alpha));
-        DoubleVector deltaX1 = x1.sum(x0.multiplyByScalar(-1));
-        DoubleVector x = new DoubleVector(x1);
-        DoubleVector deltaX = new DoubleVector(deltaX1);
-        if (deltaX.sqrtLength() < epsilon) {
-            return x;
+        DoubleVector pred = start;
+
+        Matrix G = Matrix.diagonal(start.size());
+        DoubleVector w = function.gradient(start).multiplyByScalar(-1);
+        final DoubleVector p = w;
+        double a = findAlpha(start, p);
+        DoubleVector next = start.sum(p.multiplyByScalar(a));
+
+        while (next.sum(pred.multiplyByScalar(-1)).sqrtLength() >= epsilon) {
+            DoubleVector newW = function.gradient(next).multiplyByScalar(-1);
+            DoubleVector delX = next.sum(pred.multiplyByScalar(-1));
+            DoubleVector delW = newW.sum(w.multiplyByScalar(-1));
+            G = getG(G, delX, delW);
+            final DoubleVector nextP = new DoubleVector(G.multiplyByVector(newW));
+            final DoubleVector finalNext = next;
+            a = findAlpha(finalNext, nextP);
+            pred = next;
+            w = newW;
+            next = next.sum(nextP.multiplyByScalar(a));
         }
-        return makeIteration(deltaX, deltaW, W, G, x);
+        return next;
     }
 
-    protected DoubleVector makeIteration(DoubleVector deltaX, DoubleVector deltaW, DoubleVector W, Matrix G,
-                                         DoubleVector x) {
-        return x;
-    }
+    protected abstract Matrix getG(Matrix G, DoubleVector delX, DoubleVector delW);
 }
