@@ -6,38 +6,16 @@
 
 ## Лабораторная 1
 
-Реализовать алгоритмы одномерной минимизации функции:
+Реализовать алгоритмы одномерной минимизации функции.
 
-* [метод дихотомии](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/Dichotomy.java)
+## Лабораторная 2
 
-* [метод золотого сечения](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/GoldenSection.java)
+Реализовать градиентные методы минимизации.
 
-* [метод Фиббоначи](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/Fibonacci.java)
+## Лабораторная 3 
 
-* [метод парабол](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/Parabola.java)
+Реализовать методы решения СЛАУ
 
-* [комбинированный метод Брента](https://github.com/greenIrina/optimization-methods-labs/blob/main/lab%201/src/Brent.java)
+## Лабораторная 4 
 
-Протестировать реализованные алгоритмы на следующей задаче оптимизации: найти минимум функции f(x) = (log10(x-2))^2 + (log10(10-x))^2 - x^(0.2) на отрезке [6, 9.9].
-
-##
-
-[English]
-
-Laboratory works for Optimization Methods course. 
-
-## Laboratory 1
-
-Implement methods:
-
-* Dichotomy method
-
-* Golden Section method
-
-* Fibonacci method
-
-* Parabola method
-
-* Brent's method
-
-The methods are tested on finding the minimum of function f(x) = (log10(x-2))^2 + (log10(10-x))^2 - x^(0.2) in range [6, 9.9].
+Реализовать методы Ньютона и квазиньютоновские методы
